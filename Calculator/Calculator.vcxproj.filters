@@ -42,5 +42,17 @@
     <Image Include="..\Number buttons\three_button.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\Number buttons\four.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Number buttons\five_button.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\number buttons\bitmap1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Number buttons\six_button.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

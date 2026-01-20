@@ -1,7 +1,15 @@
 #include <windows.h>
 #include <cstdio>
-
 #include "resource.h"
+
+#define POS_STATIC_BOX_X 20
+#define POS_STATIC_BOX_Y 15
+#define MEASUR_STATIC_BOX_WIDTH 225
+#define MEASUR_STATIC_BOX_HEIGHT 30
+#define POS_ZERO_X 20
+#define POS_ZERO_Y 215
+#define POS_ZERO_WIDTH 150
+#define POS_ZERO_HEIGHT 51
 
 CONST WCHAR className[] = L"CalcApplication";
 
@@ -45,22 +53,23 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_CREATE:								//Функцция создание окна
 	{
-		CreateWindow(L"STATIC", NULL, WS_VISIBLE | WS_CHILD | WS_BORDER, 20, 15, 225, 30, hwnd, (HMENU)IDR_EDIT, NULL, NULL);
-		HWND zeroButton = CreateWindow(L"Button", L"", BS_PUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 20, 215, 120, 51, hwnd, (HMENU)IDB_BUTTON_0, NULL, NULL);
+		CreateWindow(L"STATIC", NULL, WS_VISIBLE | WS_CHILD | WS_BORDER, POS_STATIC_BOX_X, POS_STATIC_BOX_Y, MEASUR_STATIC_BOX_WIDTH, MEASUR_STATIC_BOX_HEIGHT, hwnd, (HMENU)IDR_EDIT, NULL, NULL);
+		HWND zeroButton = CreateWindow(L"Button", L"", BS_PUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, POS_ZERO_X, POS_ZERO_Y, POS_ZERO_WIDTH, POS_ZERO_HEIGHT, hwnd, (HMENU)IDB_BUTTON_0, NULL, NULL);
 		HBITMAP BM = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_0), IMAGE_BITMAP, 0, 0, 0);
 		SendMessage(zeroButton, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)BM);
-		int x = 20;
-		int y = 160;
+		HWND pointButton = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 171, 213, 74, 53, hwnd, (HMENU)IDB_BUTTON_4, NULL, NULL);
+		int x = 170;
+		int y = 50;
 		for (int j = 9; j > 0; j -= 3) {
 			for (int i = 1; i <= 3; ++i)
 			{
-				HWND button = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, x, y, 74, 53, hwnd, (HMENU)IDB_BUTTON_0 + j - i, NULL, NULL);
+				HWND button = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, x, y, 74, 53, hwnd, (HMENU)(IDB_BUTTON_1 + j - i), NULL, NULL);
 				HBITMAP BT = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_1 + j - i), IMAGE_BITMAP, 0, 0, 0);
 				SendMessage(button, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)BT);
-				x += 75;
+				x -= 75;
 			}
-			x = 20;
-			y -= 55;
+			x = 170;
+			y += 55;
 		}
 	}
 		break;
@@ -72,7 +81,25 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		case IDB_BUTTON_0:
 			MessageBox(NULL, L"ZERO", L"ZERO", MB_OK);
 			break;
+		case IDB_BUTTON_1:
+			MessageBox(NULL, L"ONE", L"ONE", MB_OK);
+			break;
+		case IDB_BUTTON_2:
+			MessageBox(NULL, L"TWO", L"TWO", MB_OK);
+			break;
+		case IDB_BUTTON_3:
+			MessageBox(NULL, L"THREE", L"THREE", MB_OK);
+			break;
+		case IDB_BUTTON_4:
+			MessageBox(NULL, L"FOUR", L"FOUR", MB_OK);
+			break;
+		case IDB_BUTTON_5:
+			MessageBox(NULL, L"FIVE", L"FIVE", MB_OK);
+		case IDB_BUTTON_6:
+			MessageBox(NULL, L"SIX", L"SIX", MB_OK);
+			break;
 		}
+	
 	}
 	break;
 	case WM_DESTROY:

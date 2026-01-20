@@ -132,6 +132,10 @@
     <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\number buttons\bitmap1.bmp" />
+    <Image Include="..\Number buttons\five_button.bmp" />
+    <Image Include="..\Number buttons\four.bmp" />
+    <Image Include="..\Number buttons\six_button.bmp" />
     <Image Include="..\Number buttons\three_button.bmp" />
     <Image Include="..\Number buttons\two_button.bmp" />
     <Image Include="..\Number buttons\unit_button.bmp" />
