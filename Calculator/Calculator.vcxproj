@@ -133,13 +133,19 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\number buttons\bitmap1.bmp" />
-    <Image Include="..\Number buttons\five_button.bmp" />
-    <Image Include="..\Number buttons\four.bmp" />
-    <Image Include="..\Number buttons\six_button.bmp" />
-    <Image Include="..\Number buttons\three_button.bmp" />
-    <Image Include="..\Number buttons\two_button.bmp" />
-    <Image Include="..\Number buttons\unit_button.bmp" />
-    <Image Include="..\Number buttons\zero_buttonr.bmp" />
+    <Image Include="..\Number buttons\Custom Fonts\asterick_button.bmp" />
+    <Image Include="..\number buttons\custom fonts\bitmap1.bmp" />
+    <Image Include="..\Number buttons\Custom Fonts\divide_button.bmp" />
+    <Image Include="..\Number buttons\Custom Fonts\five_button.bmp" />
+    <Image Include="..\Number buttons\Custom Fonts\four.bmp" />
+    <Image Include="..\Number buttons\Custom Fonts\minus_button.bmp" />
+    <Image Include="..\Number buttons\Custom Fonts\plus_button.bmp" />
+    <Image Include="..\Number buttons\Custom Fonts\point_button.bmp" />
+    <Image Include="..\Number buttons\Custom Fonts\six_button.bmp" />
+    <Image Include="..\Number buttons\Custom Fonts\three_button.bmp" />
+    <Image Include="..\Number buttons\Custom Fonts\two_button.bmp" />
+    <Image Include="..\Number buttons\Custom Fonts\unit_button.bmp" />
+    <Image Include="..\Number buttons\Custom Fonts\zero_buttonr.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
