@@ -11,6 +11,25 @@
 #define POS_ZERO_WIDTH 150
 #define POS_ZERO_HEIGHT 51
 
+struct StatusOperation
+{
+private:
+	INT m_status;
+public:
+	StatusOperation() :m_status(0) {};
+public:
+	void setStatus(int status);
+	int status();
+};
+
+void StatusOperation::setStatus(int status) 
+{
+	m_status = status;
+}
+int StatusOperation::status() 
+{
+	return m_status;
+}
 CONST WCHAR className[] = L"CalcApplication";
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -46,7 +65,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	}
 	return 0;
 }
-
+void SetNumber(INT num, HWND field)
+{
+	CONST INT SIZE = 256;
+	WCHAR str[SIZE] = {};
+	if (status != 0) 
+	{
+		GetWindowText(field, str, SIZE);
+	}
+	status = 1;
+	wsprintf(str, );
+}
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
@@ -83,6 +112,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		HBITMAP asterOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_ASTER), IMAGE_BITMAP, 0, 0, 0);
 		SendMessage(asterButton, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)asterOp);
 		HWND divideButton = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 245, 212, 74, 54, hwnd, (HMENU)IDB_BUTTON_DIVIDE, NULL, NULL);
+		HBITMAP divideOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_DIVIDE), IMAGE_BITMAP, 0, 0, 0);
+		SendMessage(divideButton, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)divideOp);
+		HWND equalButton = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 20, 267, 149, 51, hwnd, (HMENU)IDB_BUTTON_EQUAL, NULL, NULL);
+		HBITMAP equalOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_EQUAL), IMAGE_BITMAP, 0, 0, 0);
+		SendMessage(equalButton, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)equalOp);
+		HWND clrButton = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 170, 267, 149, 51, hwnd, (HMENU)IDB_BUTTON_CLR, NULL, NULL);
+		HBITMAP clrOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_CLR), IMAGE_BITMAP, 0, 0, 0);
+		SendMessage(clrButton, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)clrOp);
 	}
 		break;
 	case WM_COMMAND:			//‘ункци€ в которой выполн€ютс€ все нажатые клавиши на клавиатуре или на виртуальных кпопках программы
@@ -110,8 +147,16 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		case IDB_BUTTON_6:
 			MessageBox(NULL, L"SIX", L"SIX", MB_OK);
 			break;
+		case IDB_BUTTON_7:
+			MessageBox(NULL, L"SEVEN", L"SEVEN", MB_OK);
+			break;
+		case IDB_BUTTON_8:
+			MessageBox(NULL, L"EIGHT", L"EIGHT", MB_OK);
+			break;
+		case IDB_BUTTON_9:
+			MessageBox(NULL, L"NINE", L"NINE", MB_OK);
+			break;
 		}
-	
 	}
 	break;
 	case WM_DESTROY:

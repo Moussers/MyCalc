@@ -135,12 +135,17 @@
     <Image Include="..\number buttons\bitmap1.bmp" />
     <Image Include="..\Number buttons\Custom Fonts\asterick_button.bmp" />
     <Image Include="..\number buttons\custom fonts\bitmap1.bmp" />
+    <Image Include="..\Number buttons\Custom Fonts\clr_button.bmp" />
     <Image Include="..\Number buttons\Custom Fonts\divide_button.bmp" />
+    <Image Include="..\Number buttons\Custom Fonts\eight_button.bmp" />
+    <Image Include="..\Number buttons\Custom Fonts\equal_button.bmp" />
     <Image Include="..\Number buttons\Custom Fonts\five_button.bmp" />
     <Image Include="..\Number buttons\Custom Fonts\four.bmp" />
     <Image Include="..\Number buttons\Custom Fonts\minus_button.bmp" />
+    <Image Include="..\Number buttons\Custom Fonts\nine_button.bmp" />
     <Image Include="..\Number buttons\Custom Fonts\plus_button.bmp" />
     <Image Include="..\Number buttons\Custom Fonts\point_button.bmp" />
+    <Image Include="..\Number buttons\Custom Fonts\seven_button.bmp" />
     <Image Include="..\Number buttons\Custom Fonts\six_button.bmp" />
     <Image Include="..\Number buttons\Custom Fonts\three_button.bmp" />
     <Image Include="..\Number buttons\Custom Fonts\two_button.bmp" />
