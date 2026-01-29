@@ -1,6 +1,7 @@
 #include <windows.h>
 #include <cstdio>
 #include "resource.h"
+#include <string>
 
 #define POS_STATIC_BOX_X 20
 #define POS_STATIC_BOX_Y 15
@@ -10,16 +11,31 @@
 #define POS_ZERO_Y 215
 #define POS_ZERO_WIDTH 150
 #define POS_ZERO_HEIGHT 51
+#define NO_OPER 0
 
-struct StatusOperation
+enum TypeOpeation 
 {
-private:
+	OPPLUS, OPMINUS, OPMULTI, OPDIVIDE,
+};
+enum StatusInput
+{
+	NEWNUM, OLDNUM
+};
+class StatusOperation
+{
+	//enum class StatusInputNumber {NEW_NUM, OLD_NUM};
 	INT m_status;
+	INT m_oper;
+	DOUBLE m_current;
 public:
-	StatusOperation() :m_status(0) {};
+	StatusOperation() :m_status(NEWNUM), m_oper(NO_OPER), m_current(0.0) {};
 public:
 	void setStatus(int status);
 	int status();
+	void setOper(int oper);
+	int oper();
+	void setNumber(double currentNum);
+	double currentNumber();
 };
 
 void StatusOperation::setStatus(int status) 
@@ -30,6 +46,23 @@ int StatusOperation::status()
 {
 	return m_status;
 }
+void StatusOperation::setOper(int oper)
+{
+	m_oper = oper;
+}
+int StatusOperation::oper() 
+{
+	return m_oper;
+}
+void StatusOperation::setNumber(double currentNum)
+{
+	m_current = currentNum;
+}
+double StatusOperation::currentNumber()
+{
+	return m_current;
+}
+StatusOperation stOper;
 CONST WCHAR className[] = L"CalcApplication";
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -65,16 +98,62 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	}
 	return 0;
 }
-void SetNumber(INT num, HWND field)
+void setNumber(INT num, HWND field)
 {
 	CONST INT SIZE = 256;
 	WCHAR str[SIZE] = {};
-	if (status != 0) 
+	if (stOper.status() != NEWNUM) 
 	{
 		GetWindowText(field, str, SIZE);
 	}
-	status = 1;
-	wsprintf(str, );
+	stOper.setStatus(OLDNUM);
+	wsprintf(str, L"%s%d", str, num);
+	//первый параметр читаетс€ 
+	//третий параметр записываетс€
+	SetWindowText(field, str);
+}
+void executeOperation(HWND field)
+{
+	CONST INT SIZE = 256;
+	if (stOper.oper() != NO_OPER)
+	{
+		WCHAR str[SIZE];
+		double r = 0;
+		if (stOper.status() != NEWNUM)
+		{
+			GetWindowText(field, str, SIZE);
+			r = wcstod(str, NULL);
+			switch (stOper.oper())
+			{
+			case OPPLUS:
+				stOper.setNumber(stOper.currentNumber() + r);
+				break;
+			case OPMINUS:
+				stOper.setNumber(stOper.currentNumber() - r);
+				break;
+			case OPMULTI:
+				stOper.setNumber(stOper.currentNumber() * r);
+				break;
+			case OPDIVIDE:
+				stOper.setNumber(stOper.currentNumber() / r);
+				break;
+			default:
+				MessageBox(NULL, L"ќшибка! ¬ведена не существующа€ операци€", L"¬нимание", MB_ICONWARNING | MB_OK);
+				return;
+			}
+			lstrcpy(str, std::to_wstring(stOper.currentNumber()).c_str());
+			//lstrcpy перемещает строку из дного массива строк в другой массив по символьно.
+			SetWindowText(field, str);
+		}
+		else
+		{
+			WCHAR str[SIZE];
+			if (stOper.status() != NEWNUM)
+			{
+				GetWindowText(field, str, SIZE-1);
+			}
+		}
+	}
 }
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -124,37 +203,55 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_COMMAND:			//‘ункци€ в которой выполн€ютс€ все нажатые клавиши на клавиатуре или на виртуальных кпопках программы
 	{
+		StatusOperation* stOper;
 		int id = LOWORD(wParam);
 		switch (id)
 		{
 		case IDB_BUTTON_0:
-			MessageBox(NULL, L"ZERO", L"ZERO", MB_OK);
+			setNumber(0, GetDlgItem(hwnd, IDR_EDIT));
 			break;
 		case IDB_BUTTON_1:
-			MessageBox(NULL, L"ONE", L"ONE", MB_OK);
+			setNumber(1, GetDlgItem(hwnd, IDR_EDIT));
 			break;
 		case IDB_BUTTON_2:
-			MessageBox(NULL, L"TWO", L"TWO", MB_OK);
+			setNumber(2, GetDlgItem(hwnd, IDR_EDIT));
 			break;
 		case IDB_BUTTON_3:
-			MessageBox(NULL, L"THREE", L"THREE", MB_OK);
+			setNumber(3, GetDlgItem(hwnd, IDR_EDIT));
 			break;
 		case IDB_BUTTON_4:
-			MessageBox(NULL, L"FOUR", L"FOUR", MB_OK);
+			setNumber(4, GetDlgItem(hwnd, IDR_EDIT));
 			break;
 		case IDB_BUTTON_5:
-			MessageBox(NULL, L"FIVE", L"FIVE", MB_OK);
+			setNumber(4, GetDlgItem(hwnd, IDR_EDIT));
 		case IDB_BUTTON_6:
-			MessageBox(NULL, L"SIX", L"SIX", MB_OK);
+			setNumber(5, GetDlgItem(hwnd, IDR_EDIT));
 			break;
 		case IDB_BUTTON_7:
-			MessageBox(NULL, L"SEVEN", L"SEVEN", MB_OK);
+			setNumber(7, GetDlgItem(hwnd, IDR_EDIT));
 			break;
 		case IDB_BUTTON_8:
-			MessageBox(NULL, L"EIGHT", L"EIGHT", MB_OK);
+			setNumber(8, GetDlgItem(hwnd, IDR_EDIT));
 			break;
 		case IDB_BUTTON_9:
-			MessageBox(NULL, L"NINE", L"NINE", MB_OK);
+			setNumber(9, GetDlgItem(hwnd, IDR_EDIT));
+			break;
+		case IDB_BUTTON_PLUS:
+			MessageBox(NULL, L"PLUS", L"PLUSS", MB_ICONINFORMATION | MB_OK);
+			break;
+		case IDB_BUTTON_MINUS:
+			MessageBox(NULL, L"MINUS", L"MINUS", MB_ICONINFORMATION | MB_OK);
+		case IDB_BUTTON_ASTER:
+			MessageBox(NULL, L"ASTERICK", L"ASTERICK", MB_ICONINFORMATION | MB_OK);
+			break;
+		case IDB_BUTTON_DIVIDE:
+			MessageBox(NULL, L"DIVIDE", L"DIVIDE", MB_ICONINFORMATION | MB_OK);
+			break;
+		case IDB_BUTTON_EQUAL:
+			MessageBox(NULL, L"EQUAL", L"EQUAL", MB_ICONINFORMATION | MB_OK);
+			break;
+		case IDB_BUTTON_CLR:
+			MessageBox(NULL, L"CLEAR", L"CLEAR", MB_ICONINFORMATION | MB_OK);
 			break;
 		}
 	}
