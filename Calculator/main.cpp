@@ -251,7 +251,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			MessageBox(NULL, L"EQUAL", L"EQUAL", MB_ICONINFORMATION | MB_OK);
 			break;
 		case IDB_BUTTON_CLR:
-			MessageBox(NULL, L"CLEAR", L"CLEAR", MB_ICONINFORMATION | MB_OK);
+			CONST INT SIZE = 256;
+			WCHAR str[SIZE] = {};
+			wsprintf(str, L"%s%d", str, 0);
+			HWND hClr = GetDlgItem(hwnd, IDR_EDIT);
+			SetWindowText(hClr, str);
 			break;
 		}
 	}
