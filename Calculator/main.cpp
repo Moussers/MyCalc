@@ -11,11 +11,10 @@
 #define POS_ZERO_Y 215
 #define POS_ZERO_WIDTH 150
 #define POS_ZERO_HEIGHT 51
-#define NO_OPER 0
 
 enum TypeOpeation 
 {
-	OPPLUS, OPMINUS, OPMULTI, OPDIVIDE,
+	NOOPER, OPPLUS, OPMINUS, OPMULTI, OPDIVIDE
 };
 enum StatusInput
 {
@@ -28,7 +27,7 @@ class StatusOperation
 	INT m_oper;
 	DOUBLE m_current;
 public:
-	StatusOperation() :m_status(NEWNUM), m_oper(NO_OPER), m_current(0.0) {};
+	StatusOperation() :m_status(NEWNUM), m_oper(NOOPER), m_current(0.0) {};
 public:
 	void setStatus(int status);
 	int status();
@@ -64,12 +63,10 @@ double StatusOperation::currentNumber()
 }
 StatusOperation stOper;
 CONST WCHAR className[] = L"CalcApplication";
-
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, INT nCmdShow)
 {
 	WNDCLASSW wClass = { 0 };
-
 	wClass.hbrBackground = (HBRUSH)COLOR_WINDOW;
 	wClass.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wClass.hInstance = hInstance;
@@ -86,7 +83,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		L"Calculator",
 		WS_OVERLAPPEDWINDOW | WS_VISIBLE,
 		100, 100,
-		500, 500,
+		350, 370,
 		NULL, NULL,
 		NULL, NULL
 	);
@@ -112,10 +109,33 @@ void setNumber(INT num, HWND field)
 	//третий параметр записываетс€
 	SetWindowText(field, str);
 }
+void setPoint(HWND field)
+{
+	CONST WCHAR SIZE = 256;
+	if (stOper.status() != NEWNUM) 
+	{
+		WCHAR str[SIZE];
+		GetWindowText(field, str, SIZE);
+		int numPoint = 0;
+		for (int i = 0; str[i] != '\0'; ++i)
+		{
+			if (str[i] == L'.')
+			{
+				numPoint++;
+			}
+		}
+		if (numPoint < 1) 
+		{
+
+			wsprintf(str, L"%s.", str);
+			SetWindowText(field, str);
+		}
+	}
+}
 void executeOperation(HWND field)
 {
 	CONST INT SIZE = 256;
-	if (stOper.oper() != NO_OPER)
+	if (stOper.oper() != NOOPER)
 	{
 		WCHAR str[SIZE];
 		double r = 0;
@@ -145,14 +165,18 @@ void executeOperation(HWND field)
 			//lstrcpy перемещает строку из дного массива строк в другой массив по символьно.
 			SetWindowText(field, str);
 		}
-		else
+		stOper.setStatus(NEWNUM);
+		stOper.setOper(NOOPER);
+	}
+	else 
+	{
+		WCHAR str[SIZE];
+		if (stOper.status() != NEWNUM)
 		{
-			WCHAR str[SIZE];
-			if (stOper.status() != NEWNUM)
-			{
-				GetWindowText(field, str, SIZE-1);
-			}
+			GetWindowText(field, str, SIZE - 1);
+			stOper.setNumber(wcstod(str, NULL));
 		}
+		stOper.setStatus(NEWNUM);
 	}
 }
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -162,6 +186,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_CREATE:								//‘ункцци€ создание окна
 	{
 		CreateWindow(L"STATIC", NULL, WS_VISIBLE | WS_CHILD | WS_BORDER, POS_STATIC_BOX_X, POS_STATIC_BOX_Y, MEASUR_STATIC_BOX_WIDTH, MEASUR_STATIC_BOX_HEIGHT, hwnd, (HMENU)IDR_EDIT, NULL, NULL);
+		HWND hZero = GetDlgItem(hwnd, IDR_EDIT);
+		SetWindowText(hZero, L"0");
 		HWND zeroButton = CreateWindow(L"Button", L"", BS_PUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, POS_ZERO_X, POS_ZERO_Y, POS_ZERO_WIDTH, POS_ZERO_HEIGHT, hwnd, (HMENU)IDB_BUTTON_0, NULL, NULL);
 		HBITMAP ZB = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_0), IMAGE_BITMAP, 0, 0, 0);
 		SendMessage(zeroButton, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ZB);
@@ -203,7 +229,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_COMMAND:			//‘ункци€ в которой выполн€ютс€ все нажатые клавиши на клавиатуре или на виртуальных кпопках программы
 	{
-		StatusOperation* stOper;
 		int id = LOWORD(wParam);
 		switch (id)
 		{
@@ -237,18 +262,25 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			setNumber(9, GetDlgItem(hwnd, IDR_EDIT));
 			break;
 		case IDB_BUTTON_PLUS:
-			MessageBox(NULL, L"PLUS", L"PLUSS", MB_ICONINFORMATION | MB_OK);
+			executeOperation(GetDlgItem(hwnd,IDR_EDIT));
+			stOper.setOper(OPPLUS);
 			break;
 		case IDB_BUTTON_MINUS:
-			MessageBox(NULL, L"MINUS", L"MINUS", MB_ICONINFORMATION | MB_OK);
+			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
+			stOper.setOper(OPMINUS);
 		case IDB_BUTTON_ASTER:
-			MessageBox(NULL, L"ASTERICK", L"ASTERICK", MB_ICONINFORMATION | MB_OK);
+			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
+			stOper.setOper(OPMULTI);
 			break;
 		case IDB_BUTTON_DIVIDE:
-			MessageBox(NULL, L"DIVIDE", L"DIVIDE", MB_ICONINFORMATION | MB_OK);
+			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
 			break;
 		case IDB_BUTTON_EQUAL:
-			MessageBox(NULL, L"EQUAL", L"EQUAL", MB_ICONINFORMATION | MB_OK);
+			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
+			stOper.setOper(OPDIVIDE);
+			break;
+		case IDB_BUTTON_POINT:
+			setPoint(GetDlgItem(hwnd, IDR_EDIT));
 			break;
 		case IDB_BUTTON_CLR:
 			CONST INT SIZE = 256;
@@ -256,6 +288,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			wsprintf(str, L"%s%d", str, 0);
 			HWND hClr = GetDlgItem(hwnd, IDR_EDIT);
 			SetWindowText(hClr, str);
+			stOper.setStatus(NEWNUM);
+			stOper.setOper(NOOPER);
 			break;
 		}
 	}
