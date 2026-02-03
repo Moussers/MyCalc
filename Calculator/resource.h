@@ -22,12 +22,13 @@
 #define IDB_BUTTON_DIVIDE               1014
 #define IDB_BUTTON_EQUAL                1015
 #define IDB_BUTTON_CLR                  1016
+#define IDB_BUTTON_EXPON                1017
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        121
+#define _APS_NEXT_RESOURCE_VALUE        122
 #define _APS_NEXT_COMMAND_VALUE         40001
 #define _APS_NEXT_CONTROL_VALUE         1001
 #define _APS_NEXT_SYMED_VALUE           101

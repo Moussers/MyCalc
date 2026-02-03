@@ -11,6 +11,10 @@
 #define POS_ZERO_Y 215
 #define POS_ZERO_WIDTH 150
 #define POS_ZERO_HEIGHT 51
+#define POS_POINT_X 171
+#define POS_POINT_Y 213
+#define POS_NUMBER_WIDTH 74
+#define POS_NUMBER_HEIGHT 53
 
 enum TypeOpeation 
 {
@@ -191,7 +195,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		HWND zeroButton = CreateWindow(L"Button", L"", BS_PUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, POS_ZERO_X, POS_ZERO_Y, POS_ZERO_WIDTH, POS_ZERO_HEIGHT, hwnd, (HMENU)IDB_BUTTON_0, NULL, NULL);
 		HBITMAP ZB = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_0), IMAGE_BITMAP, 0, 0, 0);
 		SendMessage(zeroButton, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ZB);
-		HWND pointButton = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 171, 213, 74, 53, hwnd, (HMENU)IDB_BUTTON_POINT, NULL, NULL);
+		HWND pointButton = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, POS_POINT_X, POS_POINT_Y, POS_NUMBER_WIDTH, POS_NUMBER_HEIGHT, hwnd, (HMENU)IDB_BUTTON_POINT, NULL, NULL);
 		HBITMAP pointB = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_POINT), IMAGE_BITMAP, 0, 0, 0);
 		SendMessage(pointButton, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)pointB);
 		int x = 170;
@@ -199,7 +203,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		for (int j = 9; j > 0; j -= 3) {
 			for (int i = 1; i <= 3; ++i)
 			{
-				HWND button = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, x, y, 74, 53, hwnd, (HMENU)(IDB_BUTTON_1 + j - i), NULL, NULL);
+				HWND button = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, x, y, POS_NUMBER_WIDTH, POS_NUMBER_HEIGHT, hwnd, (HMENU)(IDB_BUTTON_1 + j - i), NULL, NULL);
 				HBITMAP BT = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_1 + j - i), IMAGE_BITMAP, 0, 0, 0);
 				SendMessage(button, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)BT);
 				x -= 75;
@@ -207,26 +211,29 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			x = 170;
 			y += 55;
 		}
-		HWND plusButton = CreateWindow(L"Button",  L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 245, 50, 74, 53, hwnd, (HMENU)IDB_BUTTON_PLUS, NULL, NULL);
+		HWND plusBt = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 245, 50, POS_NUMBER_WIDTH, POS_NUMBER_HEIGHT, hwnd, (HMENU)IDB_BUTTON_PLUS, NULL, NULL);
 		HBITMAP plusOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_PLUS), IMAGE_BITMAP, 0, 0, 0);
-		SendMessage(plusButton, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)plusOp);
-		HWND minusButton = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 245, 105, 74, 54, hwnd, (HMENU)IDB_BUTTON_MINUS, NULL, NULL);
+		SendMessage(plusBt, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)plusOp);
+		HWND minusBt = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 245, 105, 74, 54, hwnd, (HMENU)IDB_BUTTON_MINUS, NULL, NULL);
 		HBITMAP minusOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_MINUS), IMAGE_BITMAP, 0, 0, 0);
-		SendMessage(minusButton, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)minusOp);
+		SendMessage(minusBt, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)minusOp);
 		HWND asterButton = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 245, 160, 74, 54, hwnd, (HMENU)IDB_BUTTON_ASTER, NULL, NULL);
 		HBITMAP asterOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_ASTER), IMAGE_BITMAP, 0, 0, 0);
 		SendMessage(asterButton, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)asterOp);
-		HWND divideButton = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 245, 212, 74, 54, hwnd, (HMENU)IDB_BUTTON_DIVIDE, NULL, NULL);
+		HWND divideBt = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 245, 212, 74, 54, hwnd, (HMENU)IDB_BUTTON_DIVIDE, NULL, NULL);
 		HBITMAP divideOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_DIVIDE), IMAGE_BITMAP, 0, 0, 0);
-		SendMessage(divideButton, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)divideOp);
-		HWND equalButton = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 20, 267, 149, 51, hwnd, (HMENU)IDB_BUTTON_EQUAL, NULL, NULL);
+		SendMessage(divideBt, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)divideOp);
+		HWND equalBt = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 20, 267, 149, 51, hwnd, (HMENU)IDB_BUTTON_EQUAL, NULL, NULL);
 		HBITMAP equalOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_EQUAL), IMAGE_BITMAP, 0, 0, 0);
-		SendMessage(equalButton, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)equalOp);
-		HWND clrButton = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 170, 267, 149, 51, hwnd, (HMENU)IDB_BUTTON_CLR, NULL, NULL);
+		SendMessage(equalBt, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)equalOp);
+		HWND clrBt = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 170, 267, 74, 51, hwnd, (HMENU)IDB_BUTTON_CLR, NULL, NULL);
 		HBITMAP clrOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_CLR), IMAGE_BITMAP, 0, 0, 0);
-		SendMessage(clrButton, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)clrOp);
+		SendMessage(clrBt, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)clrOp);
+		HWND exponBt = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 245, 267, 74, 51, hwnd, (HMENU)IDB_BUTTON_EXPON, NULL, NULL);
+		HBITMAP exponOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_EXPON), IMAGE_BITMAP, 0, 0, 0);
+		SendMessage(exponBt, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)exponOp);
 	}
-		break;
+	break;
 	case WM_COMMAND:			//‘ункци€ в которой выполн€ютс€ все нажатые клавиши на клавиатуре или на виртуальных кпопках программы
 	{
 		int id = LOWORD(wParam);
@@ -262,7 +269,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			setNumber(9, GetDlgItem(hwnd, IDR_EDIT));
 			break;
 		case IDB_BUTTON_PLUS:
-			executeOperation(GetDlgItem(hwnd,IDR_EDIT));
+			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
 			stOper.setOper(OPPLUS);
 			break;
 		case IDB_BUTTON_MINUS:
@@ -281,6 +288,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			break;
 		case IDB_BUTTON_POINT:
 			setPoint(GetDlgItem(hwnd, IDR_EDIT));
+			break;
+		case IDB_BUTTON_EXPON:
+			MessageBox(NULL, L"Exponentation", L"Exponentation", MB_OK);
 			break;
 		case IDB_BUTTON_CLR:
 			CONST INT SIZE = 256;
