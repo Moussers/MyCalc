@@ -146,6 +146,7 @@
     <Image Include="..\Number buttons\Custom Fonts\nine_button.bmp" />
     <Image Include="..\Number buttons\Custom Fonts\plus_button.bmp" />
     <Image Include="..\Number buttons\Custom Fonts\point_button.bmp" />
+    <Image Include="..\Number buttons\Custom Fonts\root_from_number_button.bmp" />
     <Image Include="..\Number buttons\Custom Fonts\seven_button.bmp" />
     <Image Include="..\Number buttons\Custom Fonts\six_button.bmp" />
     <Image Include="..\Number buttons\Custom Fonts\three_button.bmp" />
