@@ -316,6 +316,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			break;
 		case IDB_BUTTON_DIVIDE:
 			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
+			stOper.setOper(OPDIVIDE);
 			break;
 		case IDB_BUTTON_EQUAL:
 			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
