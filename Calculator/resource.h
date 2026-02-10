@@ -36,6 +36,9 @@
 #define IDB_BUTTON_R_8                  1028
 #define IDB_BUTTON_R_9                  1029
 #define IDB_BUTTON_R_POINT              1030
+#define IDB_BUTTON_R_PLUS               1031
+#define IDB_BUTTON_R_MINUS              1032
+#define IDB_BUTTON_R_ASTER              1033
 #define IDB_FIRST_POPUP                 2000
 #define IDB_SECOND_POPUP                2010
 
@@ -43,7 +46,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        137
+#define _APS_NEXT_RESOURCE_VALUE        140
 #define _APS_NEXT_COMMAND_VALUE         40001
 #define _APS_NEXT_CONTROL_VALUE         1001
 #define _APS_NEXT_SYMED_VALUE           101

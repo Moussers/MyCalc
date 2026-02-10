@@ -157,7 +157,10 @@
     <Image Include="..\Number buttons\Downloaded Fonts\eight_button.bmp" />
     <Image Include="..\Number buttons\Downloaded Fonts\five_button.bmp" />
     <Image Include="..\Number buttons\Downloaded Fonts\four_button.bmp" />
+    <Image Include="..\Number buttons\Downloaded Fonts\minus_button.bmp" />
+    <Image Include="..\Number buttons\Downloaded Fonts\mul_button.bmp" />
     <Image Include="..\Number buttons\Downloaded Fonts\nine_button.bmp" />
+    <Image Include="..\Number buttons\Downloaded Fonts\plus_button.bmp" />
     <Image Include="..\Number buttons\Downloaded Fonts\seven_button.bmp" />
     <Image Include="..\Number buttons\Downloaded Fonts\six_button.bmp" />
     <Image Include="..\Number buttons\Downloaded Fonts\three_button.bmp" />
