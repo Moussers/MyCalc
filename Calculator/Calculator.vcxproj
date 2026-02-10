@@ -153,8 +153,11 @@
     <Image Include="..\Number buttons\Custom Fonts\two_button.bmp" />
     <Image Include="..\Number buttons\Custom Fonts\unit_button.bmp" />
     <Image Include="..\Number buttons\Custom Fonts\zero_buttonr.bmp" />
+    <Image Include="..\Number buttons\Downloaded Fonts\c_button.bmp" />
+    <Image Include="..\Number buttons\Downloaded Fonts\div_button.bmp" />
     <Image Include="..\Number buttons\Downloaded Fonts\dot_button.bmp" />
     <Image Include="..\Number buttons\Downloaded Fonts\eight_button.bmp" />
+    <Image Include="..\Number buttons\Downloaded Fonts\equal_button.bmp" />
     <Image Include="..\Number buttons\Downloaded Fonts\five_button.bmp" />
     <Image Include="..\Number buttons\Downloaded Fonts\four_button.bmp" />
     <Image Include="..\Number buttons\Downloaded Fonts\minus_button.bmp" />

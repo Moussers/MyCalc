@@ -130,6 +130,15 @@
     <Image Include="..\Number buttons\Downloaded Fonts\mul_button.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\Number buttons\Downloaded Fonts\div_button.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Number buttons\Downloaded Fonts\equal_button.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Number buttons\Downloaded Fonts\c_button.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">

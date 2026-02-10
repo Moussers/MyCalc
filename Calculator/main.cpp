@@ -16,7 +16,7 @@
 #define POS_POINT_Y 213
 #define POS_NUMBER_WIDTH 74
 #define POS_NUMBER_HEIGHT 53
-#define NUMBER_BUTTONS 14
+#define NUMBER_BUTTONS 17
 
 enum TypeOpeation 
 {
