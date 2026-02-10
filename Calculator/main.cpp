@@ -16,6 +16,7 @@
 #define POS_POINT_Y 213
 #define POS_NUMBER_WIDTH 74
 #define POS_NUMBER_HEIGHT 53
+#define NUMBER_BUTTONS 11
 
 enum TypeOpeation 
 {
@@ -224,45 +225,45 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		CreateWindow(L"STATIC", NULL, WS_VISIBLE | WS_CHILD | WS_BORDER, POS_STATIC_BOX_X, POS_STATIC_BOX_Y, MEASUR_STATIC_BOX_WIDTH, MEASUR_STATIC_BOX_HEIGHT, hwnd, (HMENU)IDR_EDIT, NULL, NULL);
 		HWND hZero = GetDlgItem(hwnd, IDR_EDIT);
 		SetWindowText(hZero, L"0");
-		HWND zeroButton = CreateWindow(L"Button", L"", BS_PUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, POS_ZERO_X, POS_ZERO_Y, POS_NUMBER_WIDTH, POS_ZERO_HEIGHT, hwnd, (HMENU)IDB_BUTTON_0, NULL, NULL);
-		HBITMAP ZB = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_0), IMAGE_BITMAP, 0, 0, 0);
+		HWND zeroButton = CreateWindow(L"Button", L"", BS_PUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, POS_ZERO_X, POS_ZERO_Y, POS_NUMBER_WIDTH, POS_ZERO_HEIGHT, hwnd, (HMENU)IDB_BUTTON_C_0, NULL, NULL);
+		HBITMAP ZB = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_C_0), IMAGE_BITMAP, 0, 0, 0);
 		SendMessage(zeroButton, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ZB);
-		HWND pointButton = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, POS_POINT_X, POS_POINT_Y, POS_NUMBER_WIDTH, POS_NUMBER_HEIGHT, hwnd, (HMENU)IDB_BUTTON_POINT, NULL, NULL);
-		HBITMAP pointB = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_POINT), IMAGE_BITMAP, 0, 0, 0);
+		HWND pointButton = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, POS_POINT_X, POS_POINT_Y, POS_NUMBER_WIDTH, POS_NUMBER_HEIGHT, hwnd, (HMENU)IDB_BUTTON_C_POINT, NULL, NULL);
+		HBITMAP pointB = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_C_POINT), IMAGE_BITMAP, 0, 0, 0);
 		SendMessage(pointButton, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)pointB);
 		int x = 170;
 		int y = 50;
 		for (int j = 9; j > 0; j -= 3) {
 			for (int i = 1; i <= 3; ++i)
 			{
-				HWND button = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, x, y, POS_NUMBER_WIDTH, POS_NUMBER_HEIGHT, hwnd, (HMENU)(IDB_BUTTON_1 + j - i), NULL, NULL);
-				HBITMAP BT = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_1 + j - i), IMAGE_BITMAP, 0, 0, 0);
+				HWND button = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, x, y, POS_NUMBER_WIDTH, POS_NUMBER_HEIGHT, hwnd, (HMENU)(IDB_BUTTON_C_1 + j - i), NULL, NULL);
+				HBITMAP BT = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_C_1 + j - i), IMAGE_BITMAP, 0, 0, 0);
 				SendMessage(button, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)BT);
 				x -= 75;
 			}
 			x = 170;
 			y += 55;
 		}
-		HWND plusBt = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 245, 50, POS_NUMBER_WIDTH, POS_NUMBER_HEIGHT, hwnd, (HMENU)IDB_BUTTON_PLUS, NULL, NULL);
-		HBITMAP plusOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_PLUS), IMAGE_BITMAP, 0, 0, 0);
+		HWND plusBt = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 245, 50, POS_NUMBER_WIDTH, POS_NUMBER_HEIGHT, hwnd, (HMENU)IDB_BUTTON_C_PLUS, NULL, NULL);
+		HBITMAP plusOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_C_PLUS), IMAGE_BITMAP, 0, 0, 0);
 		SendMessage(plusBt, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)plusOp);
-		HWND minusBt = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 245, 105, POS_NUMBER_WIDTH, 54, hwnd, (HMENU)IDB_BUTTON_MINUS, NULL, NULL);
-		HBITMAP minusOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_MINUS), IMAGE_BITMAP, 0, 0, 0);
+		HWND minusBt = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 245, 105, POS_NUMBER_WIDTH, 54, hwnd, (HMENU)IDB_BUTTON_C_MINUS, NULL, NULL);
+		HBITMAP minusOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_C_MINUS), IMAGE_BITMAP, 0, 0, 0);
 		SendMessage(minusBt, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)minusOp);
-		HWND asterButton = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 245, 160, POS_NUMBER_WIDTH, 54, hwnd, (HMENU)IDB_BUTTON_ASTER, NULL, NULL);
-		HBITMAP asterOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_ASTER), IMAGE_BITMAP, 0, 0, 0);
+		HWND asterButton = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 245, 160, POS_NUMBER_WIDTH, 54, hwnd, (HMENU)IDB_BUTTON_C_ASTER, NULL, NULL);
+		HBITMAP asterOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_C_ASTER), IMAGE_BITMAP, 0, 0, 0);
 		SendMessage(asterButton, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)asterOp);
-		HWND divideBt = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 245, 212, POS_NUMBER_WIDTH, 54, hwnd, (HMENU)IDB_BUTTON_DIVIDE, NULL, NULL);
-		HBITMAP divideOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_DIVIDE), IMAGE_BITMAP, 0, 0, 0);
+		HWND divideBt = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 245, 212, POS_NUMBER_WIDTH, 54, hwnd, (HMENU)IDB_BUTTON_C_DIVIDE, NULL, NULL);
+		HBITMAP divideOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_C_DIVIDE), IMAGE_BITMAP, 0, 0, 0);
 		SendMessage(divideBt, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)divideOp);
-		HWND equalBt = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 20, 267, 149, 51, hwnd, (HMENU)IDB_BUTTON_EQUAL, NULL, NULL);
-		HBITMAP equalOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_EQUAL), IMAGE_BITMAP, 0, 0, 0);
+		HWND equalBt = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 20, 267, 149, 51, hwnd, (HMENU)IDB_BUTTON_C_EQUAL, NULL, NULL);
+		HBITMAP equalOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_C_EQUAL), IMAGE_BITMAP, 0, 0, 0);
 		SendMessage(equalBt, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)equalOp);
-		HWND clrBt = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 170, 267, POS_NUMBER_WIDTH, 51, hwnd, (HMENU)IDB_BUTTON_CLR, NULL, NULL);
-		HBITMAP clrOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_CLR), IMAGE_BITMAP, 0, 0, 0);
+		HWND clrBt = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 170, 267, POS_NUMBER_WIDTH, 51, hwnd, (HMENU)IDB_BUTTON_C_CLR, NULL, NULL);
+		HBITMAP clrOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_C_CLR), IMAGE_BITMAP, 0, 0, 0);
 		SendMessage(clrBt, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)clrOp);
-		HWND exponBt = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 245, 267, POS_NUMBER_WIDTH, 51, hwnd, (HMENU)IDB_BUTTON_EXPON, NULL, NULL);
-		HBITMAP exponOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_EXPON), IMAGE_BITMAP, 0, 0, 0);
+		HWND exponBt = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 245, 267, POS_NUMBER_WIDTH, 51, hwnd, (HMENU)IDB_BUTTON_C_EXPON, NULL, NULL);
+		HBITMAP exponOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_C_EXPON), IMAGE_BITMAP, 0, 0, 0);
 		SendMessage(exponBt, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)exponOp);
 		HWND rootBt = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 170, 213, POS_NUMBER_WIDTH, POS_NUMBER_HEIGHT, hwnd, (HMENU)IDB_BUTTON_ROOT, NULL, NULL);
 		HBITMAP rootOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_ROOT), IMAGE_BITMAP, 0, 0, 0);
@@ -273,12 +274,12 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 		//WM_RBUTTONDOWN - обрабатывает событие нажати€ правой кнопкой мыши по пустому окну.
 		//WN_CINTEXTMENU - обрабатывает событие нажати€ правой кнопкой мыши по кнопкам.
-		HMENU calcMenu = CreatePopupMenu();
-		AppendMenu(calcMenu, MF_STRING, IDB_BUTTON1_POPUP, L" астомный фон");
-		AppendMenu(calcMenu, MF_STRING, IDB_BUTTON2_POPUP, L" расный фон");
-		INT xPos = GET_X_LPARAM(lParam);
-		INT yPos = GET_Y_LPARAM(lParam);
-		TrackPopupMenu(calcMenu, TPM_LEFTALIGN | TPM_TOPALIGN, xPos, yPos, 0, hwnd, NULL);
+		HMENU calcMenu = CreatePopupMenu();							//CreatePopupMenu создает handle меню дл€ popup menu
+		AppendMenu(calcMenu, MF_STRING, IDB_FIRST_POPUP, L" астомный фон");
+		AppendMenu(calcMenu, MF_STRING, IDB_SECOND_POPUP, L" расный фон");
+		INT xPos = GET_X_LPARAM(lParam);							//ѕолучаем координаты x дл€ отображени€ вплывающего окна
+		INT yPos = GET_Y_LPARAM(lParam);							//ѕолучаем координаты y дл€ отображени€ вплывающего окна
+		TrackPopupMenu(calcMenu, TPM_LEFTALIGN | TPM_TOPALIGN, xPos, yPos, 0, hwnd, NULL);		//TrackpopupMenu отображает само высплывающее окно
 		DestroyMenu(calcMenu);
 	}
 		break;
@@ -287,59 +288,59 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		int id = LOWORD(wParam);
 		switch (id)
 		{
-		case IDB_BUTTON_0:
+		case IDB_BUTTON_C_0:
 			setNumber(0, GetDlgItem(hwnd, IDR_EDIT));
 			break;
-		case IDB_BUTTON_1:
+		case IDB_BUTTON_C_1:
 			setNumber(1, GetDlgItem(hwnd, IDR_EDIT));
 			break;
-		case IDB_BUTTON_2:
+		case IDB_BUTTON_C_2:
 			setNumber(2, GetDlgItem(hwnd, IDR_EDIT));
 			break;
-		case IDB_BUTTON_3:
+		case IDB_BUTTON_C_3:
 			setNumber(3, GetDlgItem(hwnd, IDR_EDIT));
 			break;
-		case IDB_BUTTON_4:
+		case IDB_BUTTON_C_4:
 			setNumber(4, GetDlgItem(hwnd, IDR_EDIT));
 			break;
-		case IDB_BUTTON_5:
+		case IDB_BUTTON_C_5:
 			setNumber(5, GetDlgItem(hwnd, IDR_EDIT));
 			break;
-		case IDB_BUTTON_6:
+		case IDB_BUTTON_C_6:
 			setNumber(6, GetDlgItem(hwnd, IDR_EDIT));
 			break;
-		case IDB_BUTTON_7:
+		case IDB_BUTTON_C_7:
 			setNumber(7, GetDlgItem(hwnd, IDR_EDIT));
 			break;
-		case IDB_BUTTON_8:
+		case IDB_BUTTON_C_8:
 			setNumber(8, GetDlgItem(hwnd, IDR_EDIT));
 			break;
-		case IDB_BUTTON_9:
+		case IDB_BUTTON_C_9:
 			setNumber(9, GetDlgItem(hwnd, IDR_EDIT));
 			break;
-		case IDB_BUTTON_PLUS:
+		case IDB_BUTTON_C_PLUS:
 			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
 			stOper.setOper(OPPLUS);
 			break;
-		case IDB_BUTTON_MINUS:
+		case IDB_BUTTON_C_MINUS:
 			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
 			stOper.setOper(OPMINUS);
-		case IDB_BUTTON_ASTER:
+		case IDB_BUTTON_C_ASTER:
 			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
 			stOper.setOper(OPMULTI);
 			break;
-		case IDB_BUTTON_DIVIDE:
+		case IDB_BUTTON_C_DIVIDE:
 			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
 			stOper.setOper(OPDIVIDE);
 			break;
-		case IDB_BUTTON_EQUAL:
+		case IDB_BUTTON_C_EQUAL:
 			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
 			stOper.setOper(OPDIVIDE);
 			break;
-		case IDB_BUTTON_POINT:
+		case IDB_BUTTON_C_POINT:
 			setPoint(GetDlgItem(hwnd, IDR_EDIT));
 			break;
-		case IDB_BUTTON_EXPON:
+		case IDB_BUTTON_C_EXPON:
 			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
 			stOper.setOper(OPEXPONENT);
 			break;
@@ -347,13 +348,27 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
 			stOper.setOper(OPROOT);
 			break;
-		case IDB_BUTTON1_POPUP:
-			MessageBox(NULL, L"Test POPUP MENU 1", L"TEST", NULL);
+		case IDB_FIRST_POPUP:
+		{
+			for (int i = 0; i < NUMBER_BUTTONS; ++i) 
+			{
+				HWND hBC = GetDlgItem(hwnd, IDB_BUTTON_C_0 + i);
+				HBITMAP HBpZ = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_C_0 + i), IMAGE_BITMAP, 0, 0, 0);
+				SendMessage(hBC, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)HBpZ);
+			}
+		}
 			break;
-		case IDB_BUTTON2_POPUP:
-			MessageBox(NULL, L"Test POPUP MENU 2", L"TEST", NULL);
+		case IDB_SECOND_POPUP:
+		{
+			for (int i = 0; i < NUMBER_BUTTONS; ++i)
+			{
+				HWND hBR = GetDlgItem(hwnd, IDB_BUTTON_C_0 + i);
+				HBITMAP HBpZ = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_R_0 + i), IMAGE_BITMAP, 0, 0, 0);
+				SendMessage(hBR, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)HBpZ);
+			}
+		}
 			break;
-		case IDB_BUTTON_CLR:
+		case IDB_BUTTON_C_CLR:
 			CONST INT SIZE = 256;
 			WCHAR str[SIZE] = {};
 			wsprintf(str, L"%s%d", str, 0);

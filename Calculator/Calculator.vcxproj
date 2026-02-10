@@ -153,6 +153,17 @@
     <Image Include="..\Number buttons\Custom Fonts\two_button.bmp" />
     <Image Include="..\Number buttons\Custom Fonts\unit_button.bmp" />
     <Image Include="..\Number buttons\Custom Fonts\zero_buttonr.bmp" />
+    <Image Include="..\Number buttons\Downloaded Fonts\dot_button.bmp" />
+    <Image Include="..\Number buttons\Downloaded Fonts\eight_button.bmp" />
+    <Image Include="..\Number buttons\Downloaded Fonts\five_button.bmp" />
+    <Image Include="..\Number buttons\Downloaded Fonts\four_button.bmp" />
+    <Image Include="..\Number buttons\Downloaded Fonts\nine_button.bmp" />
+    <Image Include="..\Number buttons\Downloaded Fonts\seven_button.bmp" />
+    <Image Include="..\Number buttons\Downloaded Fonts\six_button.bmp" />
+    <Image Include="..\Number buttons\Downloaded Fonts\three_button.bmp" />
+    <Image Include="..\Number buttons\Downloaded Fonts\two_button.bmp" />
+    <Image Include="..\Number buttons\Downloaded Fonts\unit_button.bmp" />
+    <Image Include="..\Number buttons\Downloaded Fonts\zero_buttonr.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
