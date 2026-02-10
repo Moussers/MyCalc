@@ -1,4 +1,5 @@
 #include <windows.h>
+#include <windowsx.h>
 #include <cstdio>
 #include "resource.h"
 #include <string>
@@ -268,6 +269,19 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		SendMessage(rootBt, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)rootOp);
 	}
 	break;
+	case WM_CONTEXTMENU: 
+	{
+		//WM_RBUTTONDOWN - обрабатывает событие нажатия правой кнопкой мыши по пустому окну.
+		//WN_CINTEXTMENU - обрабатывает событие нажатия правой кнопкой мыши по кнопкам.
+		HMENU calcMenu = CreatePopupMenu();
+		AppendMenu(calcMenu, MF_STRING, IDB_BUTTON1_POPUP, L"Кастомный фон");
+		AppendMenu(calcMenu, MF_STRING, IDB_BUTTON2_POPUP, L"Красный фон");
+		INT xPos = GET_X_LPARAM(lParam);
+		INT yPos = GET_Y_LPARAM(lParam);
+		TrackPopupMenu(calcMenu, TPM_LEFTALIGN | TPM_TOPALIGN, xPos, yPos, 0, hwnd, NULL);
+		DestroyMenu(calcMenu);
+	}
+		break;
 	case WM_COMMAND:			//Функция в которой выполняются все нажатые клавиши на клавиатуре или на виртуальных кпопках программы
 	{
 		int id = LOWORD(wParam);
@@ -332,6 +346,12 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		case IDB_BUTTON_ROOT:
 			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
 			stOper.setOper(OPROOT);
+			break;
+		case IDB_BUTTON1_POPUP:
+			MessageBox(NULL, L"Test POPUP MENU 1", L"TEST", NULL);
+			break;
+		case IDB_BUTTON2_POPUP:
+			MessageBox(NULL, L"Test POPUP MENU 2", L"TEST", NULL);
 			break;
 		case IDB_BUTTON_CLR:
 			CONST INT SIZE = 256;

@@ -24,6 +24,8 @@
 #define IDB_BUTTON_CLR                  1016
 #define IDB_BUTTON_EXPON                1017
 #define IDB_BUTTON_ROOT                 1018
+#define IDB_BUTTON1_POPUP				2000
+#define IDB_BUTTON2_POPUP				2010
 
 // Next default values for new objects
 // 
