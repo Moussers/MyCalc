@@ -101,6 +101,22 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	}
 	return 0;
 }
+void removeNumber(HWND field)
+{ 
+	CONST INT SIZE = 256;
+	WCHAR str[SIZE];
+	if (stOper.status() != NEWNUM)
+	{
+		GetWindowText(field, str, SIZE);
+		int i = 0;
+		while (str[i++] != 0);		//ищем конец строки. через цикл.
+		if (i > 1) 
+		{
+			str[i - 2] = 0;
+		}
+		SetWindowText(field, str);
+	}
+}
 void setNumber(INT num, HWND field)
 {
 	CONST INT SIZE = 256;
@@ -376,6 +392,127 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			SetWindowText(hClr, str);
 			stOper.setStatus(NEWNUM);
 			stOper.setOper(NOOPER);
+			break;
+		}
+		SetFocus(hwnd);
+		//SetFocus устанавливает снова потрянный фокус с клавиатуры.
+	}
+	break;
+	case WM_KEYDOWN:
+	//WM_KEYDOWN контроилирует какая кнопка нажата в данный момент.
+	{
+		switch (wParam)
+		{
+		//в wParam хранится информация о нажатой кнопке.
+		case VK_NUMPAD0:
+			setNumber(0, GetDlgItem(hwnd, IDR_EDIT));
+			break;
+		case '0':
+			setNumber(0, GetDlgItem(hwnd, IDR_EDIT));
+			break;
+		case VK_NUMPAD1:
+			setNumber(1, GetDlgItem(hwnd, IDR_EDIT));
+			break;
+		case '1':
+			setNumber(1, GetDlgItem(hwnd, IDR_EDIT));
+			break;
+		case VK_NUMPAD2:
+			setNumber(2, GetDlgItem(hwnd, IDR_EDIT));
+			break;
+		case '2':
+			setNumber(2, GetDlgItem(hwnd, IDR_EDIT));
+			break;
+		case VK_NUMPAD3:
+			setNumber(3, GetDlgItem(hwnd, IDR_EDIT));
+			break;
+		case '3':
+			setNumber(3, GetDlgItem(hwnd, IDR_EDIT));
+			break;
+		case VK_NUMPAD4:
+			setNumber(4, GetDlgItem(hwnd, IDR_EDIT));
+			break;
+		case '4':
+			setNumber(4, GetDlgItem(hwnd, IDR_EDIT));
+			break;
+		case VK_NUMPAD5:
+			setNumber(5, GetDlgItem(hwnd, IDR_EDIT));
+			break;
+		case '5':
+			setNumber(5, GetDlgItem(hwnd, IDR_EDIT));
+			break;
+		case VK_NUMPAD6:
+			setNumber(6, GetDlgItem(hwnd, IDR_EDIT));
+			break;
+		case '6':
+			setNumber(6, GetDlgItem(hwnd, IDR_EDIT));
+			break;
+		case VK_NUMPAD7:
+			setNumber(1, GetDlgItem(hwnd, IDR_EDIT));
+			break;
+		case '7':
+			setNumber(7, GetDlgItem(hwnd, IDR_EDIT));
+			break;
+		case VK_NUMPAD8:
+			setNumber(8, GetDlgItem(hwnd, IDR_EDIT));
+			break;
+		case '8':
+			if (GetKeyState(VK_SHIFT)) 
+			{
+				executeOperation(GetDlgItem(hwnd, IDR_EDIT));
+				stOper.setOper(OPMULTI);
+			}
+			else
+			{
+				setNumber(8, GetDlgItem(hwnd, IDR_EDIT));
+			}
+			break;
+		case VK_NUMPAD9:
+			setNumber(9, GetDlgItem(hwnd, IDR_EDIT));
+			break;
+		case '9':
+			setNumber(9, GetDlgItem(hwnd, IDR_EDIT));
+			break;
+		case VK_OEM_PLUS:
+			//GetKeyState -  проверяет нажата кнопка или нетб то есть состояние кнопки.
+			if (GetKeyState(VK_SHIFT))
+			{
+				executeOperation(GetDlgItem(hwnd, IDR_EDIT));
+				stOper.setOper(OPPLUS);
+			}
+			else
+			{
+				executeOperation(GetDlgItem(hwnd, IDR_EDIT));
+			}
+			break;
+		case VK_OEM_MINUS:
+			//vk_oem - отвечает за нажатие кнопопок на левой части клавиатуры символов, цифр и других водянистых знаков.
+			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
+			stOper.setOper(OPMINUS);
+			break;
+		case VK_SUBTRACT:
+		//VK_SUBSRUCT знак минус на numpad.
+			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
+			stOper.setOper(OPMINUS);
+			break;
+		case VK_MULTIPLY:
+			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
+			stOper.setOper(OPMULTI);
+			break;
+		case VK_OEM_2:
+			//VK_OEM_2 - это знак деления на numpad.
+			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
+			stOper.setOper(OPDIVIDE);
+			break;
+		case VK_RETURN:
+			//нажатие клавиши равно и с левой и правой части.
+			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
+			break;
+		case VK_BACK:
+			removeNumber(GetDlgItem(hwnd, IDR_EDIT));
+			break;
+		case VK_OEM_PERIOD:
+			//клавиша точка на левой части клавиатуры.
+			setPoint(GetDlgItem(hwnd, IDR_EDIT));
 			break;
 		}
 	}
