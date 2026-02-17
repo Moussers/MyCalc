@@ -166,6 +166,7 @@
     <Image Include="..\Number buttons\Downloaded Fonts\plus_button.bmp" />
     <Image Include="..\Number buttons\Downloaded Fonts\seven_button.bmp" />
     <Image Include="..\Number buttons\Downloaded Fonts\six_button.bmp" />
+    <Image Include="..\Number buttons\Downloaded Fonts\sqrt_button.bmp" />
     <Image Include="..\Number buttons\Downloaded Fonts\three_button.bmp" />
     <Image Include="..\Number buttons\Downloaded Fonts\two_button.bmp" />
     <Image Include="..\Number buttons\Downloaded Fonts\unit_button.bmp" />

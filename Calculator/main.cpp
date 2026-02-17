@@ -16,7 +16,7 @@
 #define POS_POINT_Y 213
 #define POS_NUMBER_WIDTH 74
 #define POS_NUMBER_HEIGHT 53
-#define NUMBER_BUTTONS 17
+#define NUMBER_BUTTONS 18
 
 enum TypeOpeation 
 {
@@ -281,8 +281,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		HWND exponBt = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 245, 267, POS_NUMBER_WIDTH, 51, hwnd, (HMENU)IDB_BUTTON_C_EXPON, NULL, NULL);
 		HBITMAP exponOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_C_EXPON), IMAGE_BITMAP, 0, 0, 0);
 		SendMessage(exponBt, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)exponOp);
-		HWND rootBt = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 170, 213, POS_NUMBER_WIDTH, POS_NUMBER_HEIGHT, hwnd, (HMENU)IDB_BUTTON_ROOT, NULL, NULL);
-		HBITMAP rootOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_ROOT), IMAGE_BITMAP, 0, 0, 0);
+		HWND rootBt = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 170, 213, POS_NUMBER_WIDTH, POS_NUMBER_HEIGHT, hwnd, (HMENU)IDB_BUTTON_C_ROOT, NULL, NULL);
+		HBITMAP rootOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_C_ROOT), IMAGE_BITMAP, 0, 0, 0);
 		SendMessage(rootBt, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)rootOp);
 	}
 	break;
@@ -360,7 +360,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
 			stOper.setOper(OPEXPONENT);
 			break;
-		case IDB_BUTTON_ROOT:
+		case IDB_BUTTON_C_ROOT:
 			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
 			stOper.setOper(OPROOT);
 			break;
