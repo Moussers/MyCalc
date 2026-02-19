@@ -403,10 +403,18 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				//0x00000000L - false в HEX
 			{
 				CheckMenuItem(subMenu, ID_AUTOLOAD, MF_UNCHECKED);
+				if (RegGetValue(HKEY_LOCAL_MACHINE, L"Computer\\HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", L"MyCalculator", REG_SZ, NULL, NULL, NULL) == ERROR_SUCCESS);
+				//HKEY_LOCAL_MACHINE - настройки для всех аккаунтов пользователей которые используют этот компьютер.
+				//HKEY_CURRENT_USER - настройки только для аккаунта текущего пользователя.
+				{
+					RegDeleteKeyValue(HKEY_LOCAL_MACHINE, L"Computer\\HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", L"MyCalculator");
+				}
 			}
 			else
 			{
 				CheckMenuItem(subMenu, ID_AUTOLOAD, MF_CHECKED);
+				LSTATUS status = RegSetKeyValue(HKEY_LOCAL_MACHINE, L"Computer\\HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", L"MyCalculator", REG_SZ, L"C:\\Users\\Sand\\source\\repos\\Calculator\\Calculator", 10);
+				//REG_SZ - тип данных строка, строка - массив char символов.
 			}
 		}
 		break;
