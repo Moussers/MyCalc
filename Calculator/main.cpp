@@ -16,7 +16,11 @@
 #define POS_POINT_Y 213
 #define POS_NUMBER_WIDTH 74
 #define POS_NUMBER_HEIGHT 53
-#define NUMBER_BUTTONS 18
+#define POS_WINDOW_X 100
+#define POS_WINDOW_Y 100
+#define POS_WINDOW_WIDTH 350
+#define POS_WINDOW_HEIGHT 390
+#define NUMBER_BUTTONS 19
 
 enum TypeOpeation 
 {
@@ -83,14 +87,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		MessageBox(NULL, L"Ошибка при регистрации окна", L"Ошибка", MB_OK);
 		return -1;
 	}
+	HMENU topMenu = CreateMenu();
+	AppendMenu(topMenu, MF_CHECKED | MF_UNCHECKED, ID_AUTOLOAD, L"Автозагрузка");
 	CreateWindow
 	(
 		className,
 		L"Calculator",
 		WS_OVERLAPPEDWINDOW | WS_VISIBLE,
-		100, 100,
-		350, 370,
-		NULL, NULL,
+		POS_WINDOW_X, POS_WINDOW_Y,
+		POS_WINDOW_WIDTH, POS_WINDOW_HEIGHT,
+		NULL, topMenu,
 		NULL, NULL
 	);
 	MSG msg = { 0 };

@@ -42,16 +42,17 @@
 #define IDB_BUTTON_R_DIVIDE             1034
 #define IDB_BUTTON_R_EQUAL              1035
 #define IDB_BUTTON_R_CLR                1036
-//#define IDB_BUTTON_R_EXPON              1037
-#define IDB_BUTTON_R_ROOT               1037
+#define IDB_BUTTON_R_EXPON              1037
+#define IDB_BUTTON_R_ROOT               1038
 #define IDB_FIRST_POPUP                 2000
 #define IDB_SECOND_POPUP                2010
+#define ID_AUTOLOAD						4000
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        144
+#define _APS_NEXT_RESOURCE_VALUE        145
 #define _APS_NEXT_COMMAND_VALUE         40001
 #define _APS_NEXT_CONTROL_VALUE         1001
 #define _APS_NEXT_SYMED_VALUE           101

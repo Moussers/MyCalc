@@ -154,6 +154,7 @@
     <Image Include="..\Number buttons\Custom Fonts\unit_button.bmp" />
     <Image Include="..\Number buttons\Custom Fonts\zero_buttonr.bmp" />
     <Image Include="..\Number buttons\Downloaded Fonts\c_button.bmp" />
+    <Image Include="..\Number buttons\Downloaded Fonts\degree_button.bmp" />
     <Image Include="..\Number buttons\Downloaded Fonts\div_button.bmp" />
     <Image Include="..\Number buttons\Downloaded Fonts\dot_button.bmp" />
     <Image Include="..\Number buttons\Downloaded Fonts\eight_button.bmp" />
