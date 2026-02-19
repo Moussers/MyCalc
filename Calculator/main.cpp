@@ -88,7 +88,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		return -1;
 	}
 	HMENU topMenu = CreateMenu();
-	AppendMenu(topMenu, MF_CHECKED | MF_UNCHECKED, ID_AUTOLOAD, L"Автозагрузка");
+	HMENU subMenu = CreatePopupMenu();
+	AppendMenu(subMenu, MF_STRING | MF_UNCHECKED, ID_AUTOLOAD, L"Автозагрузка");
+	//MF_UNCHECKED - тип проверки состояния всегда равен false;
+	//MF_CHECKED - Устанавливает атрибут check-mark (проверка-флага) 
+	//в состояние clear (очищенно), то есть не отображается тогда;
+	AppendMenu(topMenu, MF_POPUP, (UINT_PTR)subMenu, L"Дополнительно");
 	CreateWindow
 	(
 		className,
@@ -389,7 +394,22 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				SendMessage(hBR, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)HBpZ);
 			}
 		}
-			break;
+		break;
+		case ID_AUTOLOAD:
+		{
+			HMENU subMenu = GetSubMenu(GetMenu(hwnd), 0);
+			if (GetMenuState(subMenu, ID_AUTOLOAD, MF_BYCOMMAND) & MF_CHECKED)
+				//0x00000008L - true в HEX
+				//0x00000000L - false в HEX
+			{
+				CheckMenuItem(subMenu, ID_AUTOLOAD, MF_UNCHECKED);
+			}
+			else
+			{
+				CheckMenuItem(subMenu, ID_AUTOLOAD, MF_CHECKED);
+			}
+		}
+		break;
 		case IDB_BUTTON_C_CLR:
 			CONST INT SIZE = 256;
 			WCHAR str[SIZE] = {};
@@ -399,11 +419,13 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			stOper.setStatus(NEWNUM);
 			stOper.setOper(NOOPER);
 			break;
-		}
+		
+		}	
 		SetFocus(hwnd);
 		//SetFocus устанавливает снова потрянный фокус с клавиатуры.
 	}
 	break;
+	
 	case WM_KEYDOWN:
 	//WM_KEYDOWN контроилирует какая кнопка нажата в данный момент.
 	{
@@ -491,12 +513,12 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			}
 			break;
 		case VK_OEM_MINUS:
-			//vk_oem - отвечает за нажатие кнопопок на левой части клавиатуры символов, цифр и других водянистых знаков.
+			//VK_OEM - отвечает за нажатие кнопопок на левой части клавиатуры символов, цифр и других водянистых знаков.
 			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
 			stOper.setOper(OPMINUS);
 			break;
 		case VK_SUBTRACT:
-		//VK_SUBSRUCT знак минус на numpad.
+			//VK_SUBSRUCT знак минус на numpad.
 			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
 			stOper.setOper(OPMINUS);
 			break;

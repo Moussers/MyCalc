@@ -46,7 +46,8 @@
 #define IDB_BUTTON_R_ROOT               1038
 #define IDB_FIRST_POPUP                 2000
 #define IDB_SECOND_POPUP                2010
-#define ID_AUTOLOAD						4000
+#define ID_FILEMENU						4000
+#define ID_AUTOLOAD						4001
 
 // Next default values for new objects
 // 
