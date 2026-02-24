@@ -258,8 +258,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		HWND pointButton = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, POS_POINT_X, POS_POINT_Y, POS_NUMBER_WIDTH, POS_NUMBER_HEIGHT, hwnd, (HMENU)IDB_BUTTON_C_POINT, NULL, NULL);
 		HBITMAP pointB = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_C_POINT), IMAGE_BITMAP, 0, 0, 0);
 		SendMessage(pointButton, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)pointB);
-		int x = 170;
-		int y = 50;
+		INT x = 170;
+		INT y = 50;
 		for (int j = 9; j > 0; j -= 3) {
 			for (int i = 1; i <= 3; ++i)
 			{
@@ -394,8 +394,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				HWND hBR = GetDlgItem(hwnd, IDB_BUTTON_C_0 + i);
 				HBITMAP HBpZ = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_R_0 + i), IMAGE_BITMAP, 0, 0, 0);
 				SendMessage(hBR, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)HBpZ);
-				SendMessage(hwnd, WM_CTLCOLOREDIT, (WPARAM)GetDC(hwnd), 0);
 			}
+			SendMessage(hwnd, WM_CTLCOLOREDIT, (WPARAM)GetDC(hwnd), 0);
+			UpdateWindow(hwnd);
 		}
 		break;
 		case ID_AUTOLOAD:
@@ -424,7 +425,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				CONST INT SIZE = 1024;
 				WCHAR strName[SIZE], strExtra[SIZE];
 				GetModuleFileName(NULL, strExtra, SIZE);
-				wsprintf(strName, L"\"%s\"", strExtra);
+				wsprintf(strName, L"\"%s\"", strExtra);			//wsp
 				LSTATUS status = RegSetKeyValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", L"MyCalculator", REG_SZ, strName, SIZE);
 				//REG_SZ - тип данных строка, строка - массив char символов.
 			}
@@ -445,13 +446,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		//SetFocus устанавливает снова потрянный фокус с клавиатуры.
 	}
 	break;
-	case WM_CTLCOLOR: 
+	case WM_CTLCOLOREDIT: 
 	{
 		HDC hdc = (HDC)wParam;
-		COLORREF clR = RGB(32, 33, 56);
+		CONST COLORREF clR = RGB(50, 68, 74);
 		SetBkColor(hdc, clR);
-		HBRUSH br = CreateSolidBrush(clR);
-		return (LRESULT)br;
+		SetTextColor(hdc, clR);
+		HBRUSH hBrush = CreateSolidBrush(clR);
+		SetWindowLongPtr(hwnd, GCLP_HBRBACKGROUND, (LONG_PTR)hBrush);
+		SendMessage(hwnd, WM_ERASEBKGND, wParam, 0);
+		DeleteObject(hBrush);
+		//return (LRESULT)hBrush;
 	}
 		break;
 	case WM_KEYDOWN:
