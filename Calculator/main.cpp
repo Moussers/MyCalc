@@ -383,6 +383,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				HBITMAP HBpZ = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_C_0 + i), IMAGE_BITMAP, 0, 0, 0);
 				SendMessage(hBC, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)HBpZ);
 			}
+			SendMessage(hwnd, WM_CTLCOLOREDIT, (WPARAM)GetDC(hwnd), 0);
+			UpdateWindow(hwnd);
 		}
 			break;
 		case IDB_SECOND_POPUP:
@@ -392,6 +394,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				HWND hBR = GetDlgItem(hwnd, IDB_BUTTON_C_0 + i);
 				HBITMAP HBpZ = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_R_0 + i), IMAGE_BITMAP, 0, 0, 0);
 				SendMessage(hBR, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)HBpZ);
+				SendMessage(hwnd, WM_CTLCOLOREDIT, (WPARAM)GetDC(hwnd), 0);
 			}
 		}
 		break;
@@ -403,17 +406,26 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				//0x00000000L - false в HEX
 			{
 				CheckMenuItem(subMenu, ID_AUTOLOAD, MF_UNCHECKED);
-				if (RegGetValue(HKEY_LOCAL_MACHINE, L"Computer\\HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", L"MyCalculator", REG_SZ, NULL, NULL, NULL) == ERROR_SUCCESS);
+				if (RegGetValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", L"MyCalculator", RRF_RT_REG_SZ, NULL, NULL, NULL) == ERROR_SUCCESS);
 				//HKEY_LOCAL_MACHINE - настройки для всех аккаунтов пользователей которые используют этот компьютер.
 				//HKEY_CURRENT_USER - настройки только для аккаунта текущего пользователя.
 				{
-					RegDeleteKeyValue(HKEY_LOCAL_MACHINE, L"Computer\\HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", L"MyCalculator");
+					//Проверяем место нахождения ключаю
+					HKEY hKey;
+					if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_SET_VALUE, &hKey) == ERROR_SUCCESS) 
+					{
+						RegDeleteKeyValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", L"MyCalculator");
+					}
 				}
 			}
 			else
 			{
 				CheckMenuItem(subMenu, ID_AUTOLOAD, MF_CHECKED);
-				LSTATUS status = RegSetKeyValue(HKEY_LOCAL_MACHINE, L"Computer\\HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", L"MyCalculator", REG_SZ, L"C:\\Users\\Sand\\source\\repos\\Calculator\\Calculator", 10);
+				CONST INT SIZE = 1024;
+				WCHAR strName[SIZE], strExtra[SIZE];
+				GetModuleFileName(NULL, strExtra, SIZE);
+				wsprintf(strName, L"\"%s\"", strExtra);
+				LSTATUS status = RegSetKeyValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", L"MyCalculator", REG_SZ, strName, SIZE);
 				//REG_SZ - тип данных строка, строка - массив char символов.
 			}
 		}
@@ -433,7 +445,15 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		//SetFocus устанавливает снова потрянный фокус с клавиатуры.
 	}
 	break;
-	
+	case WM_CTLCOLOR: 
+	{
+		HDC hdc = (HDC)wParam;
+		COLORREF clR = RGB(32, 33, 56);
+		SetBkColor(hdc, clR);
+		HBRUSH br = CreateSolidBrush(clR);
+		return (LRESULT)br;
+	}
+		break;
 	case WM_KEYDOWN:
 	//WM_KEYDOWN контроилирует какая кнопка нажата в данный момент.
 	{
