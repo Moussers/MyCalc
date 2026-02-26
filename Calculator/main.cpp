@@ -21,6 +21,7 @@
 #define POS_WINDOW_WIDTH 350
 #define POS_WINDOW_HEIGHT 390
 #define NUMBER_BUTTONS 19
+static INT backColor = 0;
 CONST INT WINDOW_COLOR = 0;
 CONST INT FIRST_TOPIC = 0;
 CONST INT SECOND_TOPIC = 1;
@@ -254,7 +255,6 @@ void executeOperation(HWND field)
 }
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	static INT backColor;
 	switch (msg)
 	{
 	case WM_CREATE:								//‘ункцци€ создание окна
@@ -323,7 +323,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_COMMAND:			//‘ункци€ в которой выполн€ютс€ все нажатые клавиши на клавиатуре или на виртуальных кпопках программы
 	{
 		int id = LOWORD(wParam);
-		static int backColor;
 		switch (id)
 		{
 		case IDB_BUTTON_C_0:
@@ -493,7 +492,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			DeleteObject(hBrush);
 			hBrush = CreateSolidBrush(ARRCOLOR[backColor][WINDOW_COLOR]);
 		}
-		FillRect(hdc, &rect, hBrush );
+		FillRect(hdc, &rect, hBrush);
 		DeleteObject(hBrush);
 		UpdateWindow(hwnd);
 	}
