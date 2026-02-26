@@ -21,6 +21,16 @@
 #define POS_WINDOW_WIDTH 350
 #define POS_WINDOW_HEIGHT 390
 #define NUMBER_BUTTONS 19
+CONST INT WINDOW_COLOR = 0;
+CONST INT FIRST_TOPIC = 0;
+CONST INT SECOND_TOPIC = 1;
+CONST INT DISPLAY_OUTPUT_COLOR = 2;
+CONST COLORREF ARRCOLOR [][3]
+{
+	{RGB(50, 68, 74), RGB(74, 62, 86), RGB(100, 102, 112)},
+	{RGB(50, 70, 120), RGB(40, 58, 82), RGB(150, 118, 127)},
+	{RGB(40, 90, 120), RGB(50, 90, 0), RGB(120, 112, 130)}
+};
 
 enum TypeOpeation 
 {
@@ -46,7 +56,6 @@ public:
 	void setNumber(double currentNum);
 	double currentNumber();
 };
-
 void StatusOperation::setStatus(int status) 
 {
 	m_status = status;
@@ -245,6 +254,7 @@ void executeOperation(HWND field)
 }
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+	static INT backColor;
 	switch (msg)
 	{
 	case WM_CREATE:								//‘ункцци€ создание окна
@@ -313,6 +323,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_COMMAND:			//‘ункци€ в которой выполн€ютс€ все нажатые клавиши на клавиатуре или на виртуальных кпопках программы
 	{
 		int id = LOWORD(wParam);
+		static int backColor;
 		switch (id)
 		{
 		case IDB_BUTTON_C_0:
@@ -383,8 +394,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				HBITMAP HBpZ = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_C_0 + i), IMAGE_BITMAP, 0, 0, 0);
 				SendMessage(hBC, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)HBpZ);
 			}
-			SendMessage(hwnd, WM_CTLCOLOREDIT, (WPARAM)GetDC(hwnd), 0);
-			UpdateWindow(hwnd);
+			backColor = 0;
+			SendMessage(hwnd, WM_ERASEBKGND, (WPARAM)GetDC(hwnd), 0);
+			InvalidateRect(hwnd, NULL, TRUE);
+			//¬торой параметр - указатель на структуру RECT. Null - перересовать всю область.
+			//“ретий параметр - просто очистить область.
 		}
 			break;
 		case IDB_SECOND_POPUP:
@@ -395,8 +409,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				HBITMAP HBpZ = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_R_0 + i), IMAGE_BITMAP, 0, 0, 0);
 				SendMessage(hBR, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)HBpZ);
 			}
-			SendMessage(hwnd, WM_CTLCOLOREDIT, (WPARAM)GetDC(hwnd), 0);
-			UpdateWindow(hwnd);
+			backColor = 1;
+			SendMessage(hwnd, WM_ERASEBKGND, (WPARAM)GetDC(hwnd), 0);
+			InvalidateRect(hwnd, NULL, TRUE);
 		}
 		break;
 		case ID_AUTOLOAD:
@@ -446,17 +461,41 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		//SetFocus устанавливает снова потр€нный фокус с клавиатуры.
 	}
 	break;
-	case WM_CTLCOLOREDIT: 
+	case WM_CTLCOLORSTATIC:
 	{
 		HDC hdc = (HDC)wParam;
-		CONST COLORREF clR = RGB(50, 68, 74);
-		SetBkColor(hdc, clR);
-		SetTextColor(hdc, clR);
-		HBRUSH hBrush = CreateSolidBrush(clR);
-		SetWindowLongPtr(hwnd, GCLP_HBRBACKGROUND, (LONG_PTR)hBrush);
-		SendMessage(hwnd, WM_ERASEBKGND, wParam, 0);
+		if ((HWND)lParam == GetDlgItem(hwnd, IDR_EDIT))
+		{
+			if (backColor == 0) 
+			{
+				SetBkColor(hdc, RGB(23, 44, 63));
+				HBRUSH hBrush = CreateSolidBrush(ARRCOLOR[DISPLAY_OUTPUT_COLOR][backColor]);
+				return (LRESULT)hBrush;
+			}
+			else 
+			{
+				
+				SetBkColor(hdc, RGB(43, 67, 79));
+				HBRUSH hBrush = CreateSolidBrush(ARRCOLOR[DISPLAY_OUTPUT_COLOR][backColor]);
+				return (LRESULT)hBrush;
+			}
+		}
+	}
+	break;
+	case WM_ERASEBKGND:
+	{
+		HDC hdc = (HDC)wParam;
+		RECT rect;
+		GetClientRect(hwnd, &rect);
+		HBRUSH hBrush = CreateSolidBrush(ARRCOLOR[backColor][WINDOW_COLOR]);
+		if (backColor != 0) 
+		{
+			DeleteObject(hBrush);
+			hBrush = CreateSolidBrush(ARRCOLOR[backColor][WINDOW_COLOR]);
+		}
+		FillRect(hdc, &rect, hBrush );
 		DeleteObject(hBrush);
-		//return (LRESULT)hBrush;
+		UpdateWindow(hwnd);
 	}
 		break;
 	case WM_KEYDOWN:
