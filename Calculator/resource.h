@@ -5,6 +5,7 @@
 #define IDR_EDIT                        104
 #define IDR_SECOND_EDIT                 105
 #define IDR_FIRST_LABEL                 106
+#define IDR_FONT_1                      110
 #define IDB_BUTTON_C_0                  1000
 #define IDB_BUTTON_C_1                  1001
 #define IDB_BUTTON_C_2                  1002
@@ -46,14 +47,14 @@
 #define IDB_BUTTON_R_ROOT               1038
 #define IDB_FIRST_POPUP                 2000
 #define IDB_SECOND_POPUP                2010
-#define ID_FILEMENU						4000
-#define ID_AUTOLOAD						4001
+#define ID_FILEMENU                     4000
+#define ID_AUTOLOAD                     4001
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        145
+#define _APS_NEXT_RESOURCE_VALUE        146
 #define _APS_NEXT_COMMAND_VALUE         40001
 #define _APS_NEXT_CONTROL_VALUE         1001
 #define _APS_NEXT_SYMED_VALUE           101

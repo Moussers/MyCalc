@@ -30,7 +30,7 @@ CONST COLORREF ARRCOLOR [][3]
 {
 	{RGB(50, 68, 74), RGB(74, 62, 86), RGB(100, 102, 112)},
 	{RGB(50, 70, 120), RGB(40, 58, 82), RGB(150, 118, 127)},
-	{RGB(40, 90, 120), RGB(50, 90, 0), RGB(120, 112, 130)}
+	{RGB(50, 90, 120), RGB(50, 90, 0), RGB(120, 112, 130)}
 };
 
 enum TypeOpeation 
@@ -259,7 +259,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_CREATE:								//Функцция создание окна
 	{
-		CreateWindow(L"STATIC", NULL, WS_VISIBLE | WS_CHILD | WS_BORDER, POS_STATIC_BOX_X, POS_STATIC_BOX_Y, MEASUR_STATIC_BOX_WIDTH, MEASUR_STATIC_BOX_HEIGHT, hwnd, (HMENU)IDR_EDIT, NULL, NULL);
+		HWND hEdit = CreateWindow(L"STATIC", NULL, WS_VISIBLE | WS_CHILD | WS_BORDER, POS_STATIC_BOX_X, POS_STATIC_BOX_Y, MEASUR_STATIC_BOX_WIDTH, MEASUR_STATIC_BOX_HEIGHT, hwnd, (HMENU)IDR_EDIT, NULL, NULL);
 		HWND hZero = GetDlgItem(hwnd, IDR_EDIT);
 		SetWindowText(hZero, L"0");
 		HWND zeroButton = CreateWindow(L"Button", L"", BS_PUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, POS_ZERO_X, POS_ZERO_Y, POS_NUMBER_WIDTH, POS_ZERO_HEIGHT, hwnd, (HMENU)IDB_BUTTON_C_0, NULL, NULL);
@@ -305,6 +305,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		HWND rootBt = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 170, 213, POS_NUMBER_WIDTH, POS_NUMBER_HEIGHT, hwnd, (HMENU)IDB_BUTTON_C_ROOT, NULL, NULL);
 		HBITMAP rootOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_C_ROOT), IMAGE_BITMAP, 0, 0, 0);
 		SendMessage(rootBt, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)rootOp);
+		HINSTANCE hInst = GetModuleHandle(NULL);
+		HRSRC font = FindResource(hInst, MAKEINTRESOURCE(IDR_FONT_1), L"BINARY");
+		if (font != NULL) 
+		{
+			HGLOBAL resFont = LoadResource(hInst, font);
+			if (resFont != NULL) 
+			{
+				//void * - указатель на бинарные данные.
+				void* fData = LockResource(resFont);
+				//LockResource - зарпещает брать данные из указанного ресурса в скобках для других операций, давая возможность делать это void * fData;
+				DWORD len = SizeofResource(hInst, font);
+				//WORD - 2 байт.
+				//DWORD (DOUBLE WORD) - 4 байта.
+				//Получает размер ресурса.
+				DWORD numFont = 0;
+				HANDLE hFont = AddFontMemResourceEx(fData, len, NULL, &numFont);
+				//AddFontMemResourceEx() - добавляет в прострнство имён в памяти шрифт.
+				if (hFont != NULL)
+				{
+					//LOGFONT logFont = { 0 };
+					//logFont.lfHeight = 20;
+					//LOGFONT струкетура содержащая настройки логического шрифта
+					//wcscpy_s(logFont.lfFaceName, 32, L"Rockefeller3DFancyFlat.ttf");
+					//wcscpy_s - данная функция копирует названия из одной переменной в другую, размер пермеенной определяет ключ-число которая идёт вторым аргуметном.
+					//HFONT hFont = CreateFontIndirect(&logFont);
+					//Функция CreateFontIndirect создает логический шрифт с указанными характеристиками. Впоследствии этот шрифт можно выбрать в качестве текущего 
+					//для любого контекста устройства.
+					HFONT hFont = CreateFont(20, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS, CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Rockefeller 3D Fancy Flat");
+					SendMessage(hEdit, WM_SETFONT, (WPARAM)hFont, TRUE);
+					//TRUE - поле hEdit перересовывается применяя натсройки шифрта
+					//FALSE - поле hEdit не перересовывается, то есть новый шрифт не применяется.
+				}
+
+			}
+			//HGLOBAL - указатель на resource.h где находятся у нас ресуры.
+			
+		}
 	}
 	break;
 	case WM_CONTEXTMENU: 
@@ -467,14 +504,15 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		{
 			if (backColor == 0) 
 			{
-				SetBkColor(hdc, RGB(23, 44, 63));
+				SetBkColor(hdc, ARRCOLOR[DISPLAY_OUTPUT_COLOR][backColor]);
+				//Прорисовывает заданным цветом поле где далее отображается шрифт.
 				HBRUSH hBrush = CreateSolidBrush(ARRCOLOR[DISPLAY_OUTPUT_COLOR][backColor]);
 				return (LRESULT)hBrush;
 			}
 			else 
 			{
 				
-				SetBkColor(hdc, RGB(43, 67, 79));
+				SetBkColor(hdc, ARRCOLOR[DISPLAY_OUTPUT_COLOR][backColor]);
 				HBRUSH hBrush = CreateSolidBrush(ARRCOLOR[DISPLAY_OUTPUT_COLOR][backColor]);
 				return (LRESULT)hBrush;
 			}
