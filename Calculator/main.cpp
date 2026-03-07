@@ -35,7 +35,7 @@ CONST COLORREF ARRCOLOR [][3]
 
 enum TypeOpeation 
 {
-	NOOPER, OPPLUS, OPMINUS, OPMULTI, OPDIVIDE, OPEXPONENT, OPROOT
+	NOOPER, OPPLUS, OPMINUS, OPMULTIPLY, OPDIVIDE, OPEXPONENT, OPROOT
 };
 enum StatusInput
 {
@@ -194,7 +194,7 @@ void executeOperation(HWND field)
 			case OPMINUS:
 				stOper.setNumber(stOper.currentNumber() - r);
 				break;
-			case OPMULTI:
+			case OPMULTIPLY:
 				stOper.setNumber(stOper.currentNumber() * r);
 				break;
 			case OPDIVIDE:
@@ -401,7 +401,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			stOper.setOper(OPMINUS);
 		case IDB_BUTTON_C_ASTER:
 			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
-			stOper.setOper(OPMULTI);
+			stOper.setOper(OPMULTIPLY);
 			break;
 		case IDB_BUTTON_C_DIVIDE:
 			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
@@ -596,7 +596,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			if (GetKeyState(VK_SHIFT)) 
 			{
 				executeOperation(GetDlgItem(hwnd, IDR_EDIT));
-				stOper.setOper(OPMULTI);
+				stOper.setOper(OPMULTIPLY);
 			}
 			else
 			{
@@ -633,7 +633,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			break;
 		case VK_MULTIPLY:
 			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
-			stOper.setOper(OPMULTI);
+			stOper.setOper(OPMULTIPLY);
 			break;
 		case VK_OEM_2:
 			//VK_OEM_2 - это знак деления на numpad.
