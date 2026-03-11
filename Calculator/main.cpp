@@ -236,7 +236,7 @@ void executeOperation(HWND field)
 				return;
 			}
 			lstrcpy(str, std::to_wstring(stOper.currentNumber()).c_str());
-			//lstrcpy перемещает строку из дного массива строк в другой массив по символьно.
+			//lstrcpy перемещает строку из одного массива строк в другой массив по символьно.
 			SetWindowText(field, str);
 		}
 		stOper.setStatus(NEWNUM);
@@ -305,6 +305,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		HWND rootBt = CreateWindow(L"Button", L"", BS_DEFPUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, 170, 213, POS_NUMBER_WIDTH, POS_NUMBER_HEIGHT, hwnd, (HMENU)IDB_BUTTON_C_ROOT, NULL, NULL);
 		HBITMAP rootOp = (HBITMAP)LoadImage(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BUTTON_C_ROOT), IMAGE_BITMAP, 0, 0, 0);
 		SendMessage(rootBt, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)rootOp);
+		//HWND extraButton
 		HINSTANCE hInst = GetModuleHandle(NULL);
 		HRSRC font = FindResource(hInst, MAKEINTRESOURCE(IDR_FONT_1), L"BINARY");
 		if (font != NULL) 
