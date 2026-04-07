@@ -260,6 +260,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_CREATE:								//Функцция создание окна
 	{
 		HWND hEdit = CreateWindow(L"STATIC", NULL, WS_VISIBLE | WS_CHILD | WS_BORDER, POS_STATIC_BOX_X, POS_STATIC_BOX_Y, MEASUR_STATIC_BOX_WIDTH, MEASUR_STATIC_BOX_HEIGHT, hwnd, (HMENU)IDR_EDIT, NULL, NULL);
+		//WS_VISIBLE - делает видимым само окно и элементы в нём.
+		//WS_VISIBLE - если указан стиль WS_VISIBLE, CreateWindow 
+		//отправляет окну все сообщения, необходимые для его активации и отображения.
 		HWND hZero = GetDlgItem(hwnd, IDR_EDIT);
 		SetWindowText(hZero, L"0");
 		HWND zeroButton = CreateWindow(L"Button", L"", BS_PUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, POS_ZERO_X, POS_ZERO_Y, POS_NUMBER_WIDTH, POS_ZERO_HEIGHT, hwnd, (HMENU)IDB_BUTTON_C_0, NULL, NULL);
