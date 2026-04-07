@@ -101,8 +101,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	HMENU subMenu = CreatePopupMenu();
 	AppendMenu(subMenu, MF_STRING | MF_UNCHECKED, ID_AUTOLOAD, L"Автозагрузка");
 	//MF_UNCHECKED - тип проверки состояния всегда равен false;
-	//MF_CHECKED - Устанавливает атрибут check-mark (проверка-флага) 
-	//в состояние clear (очищенно), то есть не отображается тогда;
+	//MF_CHECKED - Устанавливает атрибут check-mark (проверка-флага);
+	//в состояние clear (очищенно), то есть не отображается тогда.
 	AppendMenu(topMenu, MF_POPUP, (UINT_PTR)subMenu, L"Дополнительно");
 	CreateWindow
 	(
@@ -148,8 +148,8 @@ void setNumber(INT num, HWND field)
 	}
 	stOper.setStatus(OLDNUM);
 	wsprintf(str, L"%s%d", str, num);
-	//первый параметр читается 
-	//третий параметр записывается
+	//первый параметр читается,
+	//третий параметр записывается.
 	SetWindowText(field, str);
 }
 void setPoint(HWND field)
@@ -260,6 +260,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_CREATE:								//Функцция создание окна
 	{
 		HWND hEdit = CreateWindow(L"STATIC", NULL, WS_VISIBLE | WS_CHILD | WS_BORDER, POS_STATIC_BOX_X, POS_STATIC_BOX_Y, MEASUR_STATIC_BOX_WIDTH, MEASUR_STATIC_BOX_HEIGHT, hwnd, (HMENU)IDR_EDIT, NULL, NULL);
+		//WS_VISIBLE - делает видимым само окно и элементы в нём.
+		//WS_VISIBLE - если указан стиль WS_VISIBLE, CreateWindow 
+		//отправляет окну все сообщения, необходимые для его активации и отображения.
 		HWND hZero = GetDlgItem(hwnd, IDR_EDIT);
 		SetWindowText(hZero, L"0");
 		HWND zeroButton = CreateWindow(L"Button", L"", BS_PUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, POS_ZERO_X, POS_ZERO_Y, POS_NUMBER_WIDTH, POS_ZERO_HEIGHT, hwnd, (HMENU)IDB_BUTTON_C_0, NULL, NULL);
@@ -611,7 +614,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			setNumber(9, GetDlgItem(hwnd, IDR_EDIT));
 			break;
 		case VK_OEM_PLUS:
-			//GetKeyState -  проверяет нажата кнопка или нетб то есть состояние кнопки.
+			//GetKeyState -  проверяет нажата кнопка или нет, то есть состояние кнопки.
 			if (GetKeyState(VK_SHIFT))
 			{
 				executeOperation(GetDlgItem(hwnd, IDR_EDIT));
@@ -659,6 +662,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		PostQuitMessage(0);
 		break;
 	default:
-		return DefWindowProcW(hwnd, msg, wParam, lParam);
+		return DefWindowProc(hwnd, msg, wParam, lParam);
 	}
 }
