@@ -1,4 +1,4 @@
-#include <windows.h>
+п»ї#include <windows.h>
 #include <windowsx.h>
 #include <cstdio>
 #include "resource.h"
@@ -94,16 +94,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	wClass.lpfnWndProc = WndProc;
 	if (!RegisterClassW(&wClass))
 	{
-		MessageBox(NULL, L"Ошибка при регистрации окна", L"Ошибка", MB_OK);
+		MessageBox(NULL, L"РћС€РёР±РєР° РїСЂРё СЂРµРіРёСЃС‚СЂР°С†РёРё РѕРєРЅР°", L"РћС€РёР±РєР°", MB_OK);
 		return -1;
 	}
 	HMENU topMenu = CreateMenu();
 	HMENU subMenu = CreatePopupMenu();
-	AppendMenu(subMenu, MF_STRING | MF_UNCHECKED, ID_AUTOLOAD, L"Автозагрузка");
-	//MF_UNCHECKED - тип проверки состояния всегда равен false;
-	//MF_CHECKED - Устанавливает атрибут check-mark (проверка-флага);
-	//в состояние clear (очищенно), то есть не отображается тогда.
-	AppendMenu(topMenu, MF_POPUP, (UINT_PTR)subMenu, L"Дополнительно");
+	AppendMenu(subMenu, MF_STRING | MF_UNCHECKED, ID_AUTOLOAD, L"РђРІС‚РѕР·Р°РіСЂСѓР·РєР°");
+	//MF_UNCHECKED - С‚РёРї РїСЂРѕРІРµСЂРєРё СЃРѕСЃС‚РѕСЏРЅРёСЏ РІСЃРµРіРґР° СЂР°РІРµРЅ false;
+	//MF_CHECKED - РЈСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ Р°С‚СЂРёР±СѓС‚ check-mark (РїСЂРѕРІРµСЂРєР°-С„Р»Р°РіР°);
+	//РІ СЃРѕСЃС‚РѕСЏРЅРёРµ clear (РѕС‡РёС‰РµРЅРЅРѕ), С‚Рѕ РµСЃС‚СЊ РЅРµ РѕС‚РѕР±СЂР°Р¶Р°РµС‚СЃСЏ С‚РѕРіРґР°.
+	AppendMenu(topMenu, MF_POPUP, (UINT_PTR)subMenu, L"Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕ");
 	CreateWindow
 	(
 		className,
@@ -130,7 +130,7 @@ void removeNumber(HWND field)
 	{
 		GetWindowText(field, str, SIZE);
 		int i = 0;
-		while (str[i++] != 0);		//ищем конец строки. через цикл.
+		while (str[i++] != 0);		//РёС‰РµРј РєРѕРЅРµС† СЃС‚СЂРѕРєРё. С‡РµСЂРµР· С†РёРєР».
 		if (i > 1) 
 		{
 			str[i - 2] = 0;
@@ -148,8 +148,8 @@ void setNumber(INT num, HWND field)
 	}
 	stOper.setStatus(OLDNUM);
 	wsprintf(str, L"%s%d", str, num);
-	//первый параметр читается,
-	//третий параметр записывается.
+	//РїРµСЂРІС‹Р№ РїР°СЂР°РјРµС‚СЂ С‡РёС‚Р°РµС‚СЃСЏ,
+	//С‚СЂРµС‚РёР№ РїР°СЂР°РјРµС‚СЂ Р·Р°РїРёСЃС‹РІР°РµС‚СЃСЏ.
 	SetWindowText(field, str);
 }
 void setPoint(HWND field)
@@ -232,11 +232,11 @@ void executeOperation(HWND field)
 			}
 				break;
 			default:
-				MessageBox(NULL, L"Ошибка! Введена не существующая операция", L"Внимание", MB_ICONWARNING | MB_OK);
+				MessageBox(NULL, L"РћС€РёР±РєР°! Р’РІРµРґРµРЅР° РЅРµ СЃСѓС‰РµСЃС‚РІСѓСЋС‰Р°СЏ РѕРїРµСЂР°С†РёСЏ", L"Р’РЅРёРјР°РЅРёРµ", MB_ICONWARNING | MB_OK);
 				return;
 			}
 			lstrcpy(str, std::to_wstring(stOper.currentNumber()).c_str());
-			//lstrcpy перемещает строку из одного массива строк в другой массив по символьно.
+			//lstrcpy РїРµСЂРµРјРµС‰Р°РµС‚ СЃС‚СЂРѕРєСѓ РёР· РѕРґРЅРѕРіРѕ РјР°СЃСЃРёРІР° СЃС‚СЂРѕРє РІ РґСЂСѓРіРѕР№ РјР°СЃСЃРёРІ РїРѕ СЃРёРјРІРѕР»СЊРЅРѕ.
 			SetWindowText(field, str);
 		}
 		stOper.setStatus(NEWNUM);
@@ -257,12 +257,12 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
 	{
-	case WM_CREATE:								//Функцция создание окна
+	case WM_CREATE:								//Р¤СѓРЅРєС†С†РёСЏ СЃРѕР·РґР°РЅРёРµ РѕРєРЅР°
 	{
 		HWND hEdit = CreateWindow(L"STATIC", NULL, WS_VISIBLE | WS_CHILD | WS_BORDER, POS_STATIC_BOX_X, POS_STATIC_BOX_Y, MEASUR_STATIC_BOX_WIDTH, MEASUR_STATIC_BOX_HEIGHT, hwnd, (HMENU)IDR_EDIT, NULL, NULL);
-		//WS_VISIBLE - делает видимым само окно и элементы в нём.
-		//WS_VISIBLE - если указан стиль WS_VISIBLE, CreateWindow 
-		//отправляет окну все сообщения, необходимые для его активации и отображения.
+		//WS_VISIBLE - РґРµР»Р°РµС‚ РІРёРґРёРјС‹Рј СЃР°РјРѕ РѕРєРЅРѕ Рё СЌР»РµРјРµРЅС‚С‹ РІ РЅС‘Рј.
+		//WS_VISIBLE - РµСЃР»Рё СѓРєР°Р·Р°РЅ СЃС‚РёР»СЊ WS_VISIBLE, CreateWindow 
+		//РѕС‚РїСЂР°РІР»СЏРµС‚ РѕРєРЅСѓ РІСЃРµ СЃРѕРѕР±С‰РµРЅРёСЏ, РЅРµРѕР±С…РѕРґРёРјС‹Рµ РґР»СЏ РµРіРѕ Р°РєС‚РёРІР°С†РёРё Рё РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ.
 		HWND hZero = GetDlgItem(hwnd, IDR_EDIT);
 		SetWindowText(hZero, L"0");
 		HWND zeroButton = CreateWindow(L"Button", L"", BS_PUSHBUTTON | WS_VISIBLE | WS_CHILD | BS_BITMAP, POS_ZERO_X, POS_ZERO_Y, POS_NUMBER_WIDTH, POS_ZERO_HEIGHT, hwnd, (HMENU)IDB_BUTTON_C_0, NULL, NULL);
@@ -316,52 +316,52 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			HGLOBAL resFont = LoadResource(hInst, font);
 			if (resFont != NULL) 
 			{
-				//void * - указатель на бинарные данные.
+				//void * - СѓРєР°Р·Р°С‚РµР»СЊ РЅР° Р±РёРЅР°СЂРЅС‹Рµ РґР°РЅРЅС‹Рµ.
 				void* fData = LockResource(resFont);
-				//LockResource - зарпещает брать данные из указанного ресурса в скобках для других операций, давая возможность делать это void * fData;
+				//LockResource - Р·Р°СЂРїРµС‰Р°РµС‚ Р±СЂР°С‚СЊ РґР°РЅРЅС‹Рµ РёР· СѓРєР°Р·Р°РЅРЅРѕРіРѕ СЂРµСЃСѓСЂСЃР° РІ СЃРєРѕР±РєР°С… РґР»СЏ РґСЂСѓРіРёС… РѕРїРµСЂР°С†РёР№, РґР°РІР°СЏ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РґРµР»Р°С‚СЊ СЌС‚Рѕ void * fData;
 				DWORD len = SizeofResource(hInst, font);
-				//WORD - 2 байт.
-				//DWORD (DOUBLE WORD) - 4 байта.
-				//Получает размер ресурса.
+				//WORD - 2 Р±Р°Р№С‚.
+				//DWORD (DOUBLE WORD) - 4 Р±Р°Р№С‚Р°.
+				//РџРѕР»СѓС‡Р°РµС‚ СЂР°Р·РјРµСЂ СЂРµСЃСѓСЂСЃР°.
 				DWORD numFont = 0;
 				HANDLE hFont = AddFontMemResourceEx(fData, len, NULL, &numFont);
-				//AddFontMemResourceEx() - добавляет в прострнство имён в памяти шрифт.
+				//AddFontMemResourceEx() - РґРѕР±Р°РІР»СЏРµС‚ РІ РїСЂРѕСЃС‚СЂРЅСЃС‚РІРѕ РёРјС‘РЅ РІ РїР°РјСЏС‚Рё С€СЂРёС„С‚.
 				if (hFont != NULL)
 				{
 					//LOGFONT logFont = { 0 };
 					//logFont.lfHeight = 20;
-					//LOGFONT струкетура содержащая настройки логического шрифта
+					//LOGFONT СЃС‚СЂСѓРєРµС‚СѓСЂР° СЃРѕРґРµСЂР¶Р°С‰Р°СЏ РЅР°СЃС‚СЂРѕР№РєРё Р»РѕРіРёС‡РµСЃРєРѕРіРѕ С€СЂРёС„С‚Р°
 					//wcscpy_s(logFont.lfFaceName, 32, L"Rockefeller3DFancyFlat.ttf");
-					//wcscpy_s - данная функция копирует названия из одной переменной в другую, размер пермеенной определяет ключ-число которая идёт вторым аргуметном.
+					//wcscpy_s - РґР°РЅРЅР°СЏ С„СѓРЅРєС†РёСЏ РєРѕРїРёСЂСѓРµС‚ РЅР°Р·РІР°РЅРёСЏ РёР· РѕРґРЅРѕР№ РїРµСЂРµРјРµРЅРЅРѕР№ РІ РґСЂСѓРіСѓСЋ, СЂР°Р·РјРµСЂ РїРµСЂРјРµРµРЅРЅРѕР№ РѕРїСЂРµРґРµР»СЏРµС‚ РєР»СЋС‡-С‡РёСЃР»Рѕ РєРѕС‚РѕСЂР°СЏ РёРґС‘С‚ РІС‚РѕСЂС‹Рј Р°СЂРіСѓРјРµС‚РЅРѕРј.
 					//HFONT hFont = CreateFontIndirect(&logFont);
-					//Функция CreateFontIndirect создает логический шрифт с указанными характеристиками. Впоследствии этот шрифт можно выбрать в качестве текущего 
-					//для любого контекста устройства.
+					//Р¤СѓРЅРєС†РёСЏ CreateFontIndirect СЃРѕР·РґР°РµС‚ Р»РѕРіРёС‡РµСЃРєРёР№ С€СЂРёС„С‚ СЃ СѓРєР°Р·Р°РЅРЅС‹РјРё С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєР°РјРё. Р’РїРѕСЃР»РµРґСЃС‚РІРёРё СЌС‚РѕС‚ С€СЂРёС„С‚ РјРѕР¶РЅРѕ РІС‹Р±СЂР°С‚СЊ РІ РєР°С‡РµСЃС‚РІРµ С‚РµРєСѓС‰РµРіРѕ 
+					//РґР»СЏ Р»СЋР±РѕРіРѕ РєРѕРЅС‚РµРєСЃС‚Р° СѓСЃС‚СЂРѕР№СЃС‚РІР°.
 					HFONT hFont = CreateFont(20, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS, CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Rockefeller 3D Fancy Flat");
 					SendMessage(hEdit, WM_SETFONT, (WPARAM)hFont, TRUE);
-					//TRUE - поле hEdit перересовывается применяя натсройки шифрта
-					//FALSE - поле hEdit не перересовывается, то есть новый шрифт не применяется.
+					//TRUE - РїРѕР»Рµ hEdit РїРµСЂРµСЂРµСЃРѕРІС‹РІР°РµС‚СЃСЏ РїСЂРёРјРµРЅСЏСЏ РЅР°С‚СЃСЂРѕР№РєРё С€РёС„СЂС‚Р°
+					//FALSE - РїРѕР»Рµ hEdit РЅРµ РїРµСЂРµСЂРµСЃРѕРІС‹РІР°РµС‚СЃСЏ, С‚Рѕ РµСЃС‚СЊ РЅРѕРІС‹Р№ С€СЂРёС„С‚ РЅРµ РїСЂРёРјРµРЅСЏРµС‚СЃСЏ.
 				}
 
 			}
-			//HGLOBAL - указатель на resource.h где находятся у нас ресуры.
+			//HGLOBAL - СѓРєР°Р·Р°С‚РµР»СЊ РЅР° resource.h РіРґРµ РЅР°С…РѕРґСЏС‚СЃСЏ Сѓ РЅР°СЃ СЂРµСЃСѓСЂС‹.
 			
 		}
 	}
 	break;
 	case WM_CONTEXTMENU: 
 	{
-		//WM_RBUTTONDOWN - обрабатывает событие нажатия правой кнопкой мыши по пустому окну.
-		//WN_CINTEXTMENU - обрабатывает событие нажатия правой кнопкой мыши по кнопкам.
-		HMENU calcMenu = CreatePopupMenu();							//CreatePopupMenu создает handle меню для popup menu
-		AppendMenu(calcMenu, MF_STRING, IDB_FIRST_POPUP, L"Кастомный фон");
-		AppendMenu(calcMenu, MF_STRING, IDB_SECOND_POPUP, L"Красный фон");
-		INT xPos = GET_X_LPARAM(lParam);							//Получаем координаты x для отображения вплывающего окна
-		INT yPos = GET_Y_LPARAM(lParam);							//Получаем координаты y для отображения вплывающего окна
-		TrackPopupMenu(calcMenu, TPM_LEFTALIGN | TPM_TOPALIGN, xPos, yPos, 0, hwnd, NULL);		//TrackpopupMenu отображает само высплывающее окно
+		//WM_RBUTTONDOWN - РѕР±СЂР°Р±Р°С‚С‹РІР°РµС‚ СЃРѕР±С‹С‚РёРµ РЅР°Р¶Р°С‚РёСЏ РїСЂР°РІРѕР№ РєРЅРѕРїРєРѕР№ РјС‹С€Рё РїРѕ РїСѓСЃС‚РѕРјСѓ РѕРєРЅСѓ.
+		//WN_CINTEXTMENU - РѕР±СЂР°Р±Р°С‚С‹РІР°РµС‚ СЃРѕР±С‹С‚РёРµ РЅР°Р¶Р°С‚РёСЏ РїСЂР°РІРѕР№ РєРЅРѕРїРєРѕР№ РјС‹С€Рё РїРѕ РєРЅРѕРїРєР°Рј.
+		HMENU calcMenu = CreatePopupMenu();							//CreatePopupMenu СЃРѕР·РґР°РµС‚ handle РјРµРЅСЋ РґР»СЏ popup menu
+		AppendMenu(calcMenu, MF_STRING, IDB_FIRST_POPUP, L"РљР°СЃС‚РѕРјРЅС‹Р№ С„РѕРЅ");
+		AppendMenu(calcMenu, MF_STRING, IDB_SECOND_POPUP, L"РљСЂР°СЃРЅС‹Р№ С„РѕРЅ");
+		INT xPos = GET_X_LPARAM(lParam);							//РџРѕР»СѓС‡Р°РµРј РєРѕРѕСЂРґРёРЅР°С‚С‹ x РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РІРїР»С‹РІР°СЋС‰РµРіРѕ РѕРєРЅР°
+		INT yPos = GET_Y_LPARAM(lParam);							//РџРѕР»СѓС‡Р°РµРј РєРѕРѕСЂРґРёРЅР°С‚С‹ y РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РІРїР»С‹РІР°СЋС‰РµРіРѕ РѕРєРЅР°
+		TrackPopupMenu(calcMenu, TPM_LEFTALIGN | TPM_TOPALIGN, xPos, yPos, 0, hwnd, NULL);		//TrackpopupMenu РѕС‚РѕР±СЂР°Р¶Р°РµС‚ СЃР°РјРѕ РІС‹СЃРїР»С‹РІР°СЋС‰РµРµ РѕРєРЅРѕ
 		DestroyMenu(calcMenu);
 	}
 		break;
-	case WM_COMMAND:			//Функция в которой выполняются все нажатые клавиши на клавиатуре или на виртуальных кпопках программы
+	case WM_COMMAND:			//Р¤СѓРЅРєС†РёСЏ РІ РєРѕС‚РѕСЂРѕР№ РІС‹РїРѕР»РЅСЏСЋС‚СЃСЏ РІСЃРµ РЅР°Р¶Р°С‚С‹Рµ РєР»Р°РІРёС€Рё РЅР° РєР»Р°РІРёР°С‚СѓСЂРµ РёР»Рё РЅР° РІРёСЂС‚СѓР°Р»СЊРЅС‹С… РєРїРѕРїРєР°С… РїСЂРѕРіСЂР°РјРјС‹
 	{
 		int id = LOWORD(wParam);
 		switch (id)
@@ -437,8 +437,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			backColor = 0;
 			SendMessage(hwnd, WM_ERASEBKGND, (WPARAM)GetDC(hwnd), 0);
 			InvalidateRect(hwnd, NULL, TRUE);
-			//Второй параметр - указатель на структуру RECT. Null - перересовать всю область.
-			//Третий параметр - просто очистить область.
+			//Р’С‚РѕСЂРѕР№ РїР°СЂР°РјРµС‚СЂ - СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЃС‚СЂСѓРєС‚СѓСЂСѓ RECT. Null - РїРµСЂРµСЂРµСЃРѕРІР°С‚СЊ РІСЃСЋ РѕР±Р»Р°СЃС‚СЊ.
+			//РўСЂРµС‚РёР№ РїР°СЂР°РјРµС‚СЂ - РїСЂРѕСЃС‚Рѕ РѕС‡РёСЃС‚РёС‚СЊ РѕР±Р»Р°СЃС‚СЊ.
 		}
 			break;
 		case IDB_SECOND_POPUP:
@@ -458,15 +458,15 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		{
 			HMENU subMenu = GetSubMenu(GetMenu(hwnd), 0);
 			if (GetMenuState(subMenu, ID_AUTOLOAD, MF_BYCOMMAND) & MF_CHECKED)
-				//0x00000008L - true в HEX
-				//0x00000000L - false в HEX
+				//0x00000008L - true РІ HEX
+				//0x00000000L - false РІ HEX
 			{
 				CheckMenuItem(subMenu, ID_AUTOLOAD, MF_UNCHECKED);
 				if (RegGetValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", L"MyCalculator", RRF_RT_REG_SZ, NULL, NULL, NULL) == ERROR_SUCCESS);
-				//HKEY_LOCAL_MACHINE - настройки для всех аккаунтов пользователей которые используют этот компьютер.
-				//HKEY_CURRENT_USER - настройки только для аккаунта текущего пользователя.
+				//HKEY_LOCAL_MACHINE - РЅР°СЃС‚СЂРѕР№РєРё РґР»СЏ РІСЃРµС… Р°РєРєР°СѓРЅС‚РѕРІ РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№ РєРѕС‚РѕСЂС‹Рµ РёСЃРїРѕР»СЊР·СѓСЋС‚ СЌС‚РѕС‚ РєРѕРјРїСЊСЋС‚РµСЂ.
+				//HKEY_CURRENT_USER - РЅР°СЃС‚СЂРѕР№РєРё С‚РѕР»СЊРєРѕ РґР»СЏ Р°РєРєР°СѓРЅС‚Р° С‚РµРєСѓС‰РµРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ.
 				{
-					//Проверяем место нахождения ключаю
+					//РџСЂРѕРІРµСЂСЏРµРј РјРµСЃС‚Рѕ РЅР°С…РѕР¶РґРµРЅРёСЏ РєР»СЋС‡Р°СЋ
 					HKEY hKey;
 					if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_SET_VALUE, &hKey) == ERROR_SUCCESS) 
 					{
@@ -482,7 +482,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				GetModuleFileName(NULL, strExtra, SIZE);
 				wsprintf(strName, L"\"%s\"", strExtra);			//wsp
 				LSTATUS status = RegSetKeyValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", L"MyCalculator", REG_SZ, strName, SIZE);
-				//REG_SZ - тип данных строка, строка - массив char символов.
+				//REG_SZ - С‚РёРї РґР°РЅРЅС‹С… СЃС‚СЂРѕРєР°, СЃС‚СЂРѕРєР° - РјР°СЃСЃРёРІ char СЃРёРјРІРѕР»РѕРІ.
 			}
 		}
 		break;
@@ -498,7 +498,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		
 		}	
 		SetFocus(hwnd);
-		//SetFocus устанавливает снова потрянный фокус с клавиатуры.
+		//SetFocus СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ СЃРЅРѕРІР° РїРѕС‚СЂСЏРЅРЅС‹Р№ С„РѕРєСѓСЃ СЃ РєР»Р°РІРёР°С‚СѓСЂС‹.
 	}
 	break;
 	case WM_CTLCOLORSTATIC:
@@ -509,7 +509,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			if (backColor == 0) 
 			{
 				SetBkColor(hdc, ARRCOLOR[DISPLAY_OUTPUT_COLOR][backColor]);
-				//Прорисовывает заданным цветом поле где далее отображается шрифт.
+				//РџСЂРѕСЂРёСЃРѕРІС‹РІР°РµС‚ Р·Р°РґР°РЅРЅС‹Рј С†РІРµС‚РѕРј РїРѕР»Рµ РіРґРµ РґР°Р»РµРµ РѕС‚РѕР±СЂР°Р¶Р°РµС‚СЃСЏ С€СЂРёС„С‚.
 				HBRUSH hBrush = CreateSolidBrush(ARRCOLOR[DISPLAY_OUTPUT_COLOR][backColor]);
 				return (LRESULT)hBrush;
 			}
@@ -540,11 +540,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	}
 		break;
 	case WM_KEYDOWN:
-	//WM_KEYDOWN контроилирует какая кнопка нажата в данный момент.
+	//WM_KEYDOWN РєРѕРЅС‚СЂРѕРёР»РёСЂСѓРµС‚ РєР°РєР°СЏ РєРЅРѕРїРєР° РЅР°Р¶Р°С‚Р° РІ РґР°РЅРЅС‹Р№ РјРѕРјРµРЅС‚.
 	{
 		switch (wParam)
 		{
-		//в wParam хранится информация о нажатой кнопке.
+		//РІ wParam С…СЂР°РЅРёС‚СЃСЏ РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ РЅР°Р¶Р°С‚РѕР№ РєРЅРѕРїРєРµ.
 		case VK_NUMPAD0:
 			setNumber(0, GetDlgItem(hwnd, IDR_EDIT));
 			break;
@@ -614,7 +614,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			setNumber(9, GetDlgItem(hwnd, IDR_EDIT));
 			break;
 		case VK_OEM_PLUS:
-			//GetKeyState -  проверяет нажата кнопка или нет, то есть состояние кнопки.
+			//GetKeyState -  РїСЂРѕРІРµСЂСЏРµС‚ РЅР°Р¶Р°С‚Р° РєРЅРѕРїРєР° РёР»Рё РЅРµС‚, С‚Рѕ РµСЃС‚СЊ СЃРѕСЃС‚РѕСЏРЅРёРµ РєРЅРѕРїРєРё.
 			if (GetKeyState(VK_SHIFT))
 			{
 				executeOperation(GetDlgItem(hwnd, IDR_EDIT));
@@ -626,12 +626,12 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			}
 			break;
 		case VK_OEM_MINUS:
-			//VK_OEM - отвечает за нажатие кнопопок на левой части клавиатуры символов, цифр и других водянистых знаков.
+			//VK_OEM - РѕС‚РІРµС‡Р°РµС‚ Р·Р° РЅР°Р¶Р°С‚РёРµ РєРЅРѕРїРѕРїРѕРє РЅР° Р»РµРІРѕР№ С‡Р°СЃС‚Рё РєР»Р°РІРёР°С‚СѓСЂС‹ СЃРёРјРІРѕР»РѕРІ, С†РёС„СЂ Рё РґСЂСѓРіРёС… РІРѕРґСЏРЅРёСЃС‚С‹С… Р·РЅР°РєРѕРІ.
 			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
 			stOper.setOper(OPMINUS);
 			break;
 		case VK_SUBTRACT:
-			//VK_SUBSRUCT знак минус на numpad.
+			//VK_SUBSRUCT Р·РЅР°Рє РјРёРЅСѓСЃ РЅР° numpad.
 			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
 			stOper.setOper(OPMINUS);
 			break;
@@ -640,19 +640,19 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			stOper.setOper(OPMULTIPLY);
 			break;
 		case VK_OEM_2:
-			//VK_OEM_2 - это знак деления на numpad.
+			//VK_OEM_2 - СЌС‚Рѕ Р·РЅР°Рє РґРµР»РµРЅРёСЏ РЅР° numpad.
 			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
 			stOper.setOper(OPDIVIDE);
 			break;
 		case VK_RETURN:
-			//нажатие клавиши равно и с левой и правой части.
+			//РЅР°Р¶Р°С‚РёРµ РєР»Р°РІРёС€Рё СЂР°РІРЅРѕ Рё СЃ Р»РµРІРѕР№ Рё РїСЂР°РІРѕР№ С‡Р°СЃС‚Рё.
 			executeOperation(GetDlgItem(hwnd, IDR_EDIT));
 			break;
 		case VK_BACK:
 			removeNumber(GetDlgItem(hwnd, IDR_EDIT));
 			break;
 		case VK_OEM_PERIOD:
-			//клавиша точка на левой части клавиатуры.
+			//РєР»Р°РІРёС€Р° С‚РѕС‡РєР° РЅР° Р»РµРІРѕР№ С‡Р°СЃС‚Рё РєР»Р°РІРёР°С‚СѓСЂС‹.
 			setPoint(GetDlgItem(hwnd, IDR_EDIT));
 			break;
 		}
